@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <title>Weather Dashboard</title>
+  </head>
+  <body>
+    <!-- Header (SHOULD SPAN ENTIRE VIEW WIDTH?) -->
+    <header>
+      <div class="container">
+        <div class="row">
+          <h1 class="vw-100 p-0 bg-primary text-center text-light">
+            Weather Dashboard
+          </h1>
+        </div>
+      </div>
+    </header>
 
+    <!-- Main class for all content -->
+    <main>
+      <section class="container">
+        <div class="row d-flex flex-wrap">
+          <!-- Section for search city -->
+          <div class="col-sm-12 col-lg-4">
+            <h2 class="col-lg-12">Search for a City:</h2>
+            <div class="border-bottom border-2 border-dark mb-4">
+              <form class="my-4">
+                <input
+                  type="serach"
+                  class="form-control"
+                  id="search-bar"
+                  placeholder="Search"
+                />
+              </form>
+              <button class="btn btn-primary col-lg-12 mb-4">Search</button>
+            </div>
+            <p class="bg-secondary rounded text-center p-2">Austin</p>
+            <p class="bg-secondary rounded text-center p-2">Chicago</p>
+            <p class="bg-secondary rounded text-center p-2">New York</p>
+            <p class="bg-secondary rounded text-center p-2">Orlando</p>
+            <p class="bg-secondary rounded text-center p-2">San Francisco</p>
+          </div>
+
+          <!-- Section for sample city placeholder-->
+          <div class="col-sm-12 col-lg-8 mb-4">
+            <div class="border border-dark p-2">
+              <h2>City Placeholder</h2>
+              <p>Temp:</p>
+              <p>Wind:</p>
+              <p>Humidity:</p>
+              <p>UV Index:</p>
+              <!-- GENERATE THIS NEXT TO P ELEMENT? -->
+              <p class="bg-success rounded text-center p-2 w-25">UV</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section for 5 day forecast-->
+        <section class="row justify-content-center">
+          <div class="col-sm-12 col-lg-8">
+            <h3 class="text-left col-lg-12">5-Day Forecast:</h3>
+            <section class="row justify-content-around">
+              <div class="col-sm-12 col-lg-2 bg-dark text-light">
+                <h4>Date Placeholder</h4>
+                <p>Temp:</p>
+                <p>Wind:</p>
+                <p>Humidity:</p>
+              </div>
+              <div class="col-sm-12 col-lg-2 bg-dark text-light">
+                <h4>Date Placeholder</h4>
+                <p>Temp:</p>
+                <p>Wind:</p>
+                <p>Humidity:</p>
+              </div>
+              <div class="col-sm-12 col-lg-2 bg-dark text-light">
+                <h4>Date Placeholder</h4>
+                <p>Temp:</p>
+                <p>Wind:</p>
+                <p>Humidity:</p>
+              </div>
+              <div class="col-sm-12 col-lg-2 bg-dark text-light">
+                <h4>Date Placeholder</h4>
+                <p>Temp:</p>
+                <p>Wind:</p>
+                <p>Humidity:</p>
+              </div>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- link to jS -->
+    <script src="/assets/js/script.js"></script>
+  </body>
+</html>
+
+<!-- TO DO: FIX FLEX LAYOUT TO MATCH MOCKUP -->
