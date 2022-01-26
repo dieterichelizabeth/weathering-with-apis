@@ -2,6 +2,7 @@
  var apiKey = "91f9a95536d09a6da3e85f409255652c";
  
  // Variables to store latitude/logitude values
+ // current values- Dallas, TX
  var latitude = "32.77";
  var longitude = "-96.80";
 
@@ -10,17 +11,47 @@
     // format weather API
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
     // Response object - JSON formats the response
-    fetch(apiUrl).then(function(response) {
+    fetch(apiUrl)
+    .then(function(response) {
         response.json().then(function(data) {
+            // city parameter may need to be changed
+            // displayCityWeather (data,city);
             console.log(data);
-          });
+            console.log(data.current.uvi);
+            console.log(data.current.temp);
+            console.log(data.current.humidity);
     })
-}
+})
+    // set alert for unable to reach the api (connectivity issue alert)
+    .catch(function(error) {
+        alert("Unable to connect to Open Source Weather");
+    });
+};
+   
+
+//Create function displayCityWeather
+
 getCityWeather();
 
-//variables to store a reference to the show repositories element
-var repoContainerEl = document.querySelector("#repos-container");
-var repoSearchTerm = document.querySelector("#repo-search-term");
+/*
+Relavent information [daily 0 = today]
+City name (date: current.dt) (weather icon: current.weather.icon)
+temperature: current.temp
+wind: current.wind_speed?
+humidity: current.humidity
+uv index: current.uvi
+
+5 day forecast
+date: daily.dt [1, 2, 3, 4]
+icon: daily.weather.icon [1, 2, 3, 4]
+temp: daily.temp [1, 2, 3, 4]
+wind: daily.wind_speed [1, 2, 3, 4]
+humidity: daily.humidity [1, 2, 3, 4]
+*/
+
+// //variables to store a reference to the show repositories element
+// var repoContainerEl = document.querySelector("#repos-container");
+// var repoSearchTerm = document.querySelector("#repo-search-term");
 
 /*
 Step 3. Create a function to search for cities 
@@ -73,33 +104,21 @@ Resources
 https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
 https://coding-boot-camp.github.io/full-stack/
 https://docs.github.com/en/rest
+(API documentation) https://openweathermap.org/api/one-call-api
 */
 
 /*
-DONE Step 1: create funtion getCityWeather to fetch data from the 
+DONE Step 1: create HTML to match mockup
+DONE Step 2: create funtion getCityWeather to fetch data from the 
     weather API and return JSON data to console
-Step 2: create function formSubmitHandler to 
-    recieve data from form submission and return through get User Repos
-Step 3: create function displayRepos to display both the repos list and search term
+Step 3: create function formSubmitHandler to 
+    recieve data from form submission and return through getCityWeather
+        -create a function? to get lat/long values for the fetch
+Step 4: create function displayRepos to display both the repos list and search term
     then create a for loop within the funciton to diplay the results in html
-Step 4: add if statements to the getUserRepos function to 
-    - check the username is valid via Github's API (404 response)
-    - check if the user has repositories
-    - catch method to check for network errors
+        - will need to display items as strings?
+Step 5: add if statements to the getCityWeather function to 
+    - check the City name is valid via Open Weather's API (404 response)
+    - catch method to check for network errors (conectivity issues)
 */
 
-/*
-Relavent information [daily 0 = today]
-City name (date: current.dt) (weather icon: current.weather.icon)
-temperature: current.temp
-wind: current.wind_speed?
-humidity: current.humidity
-uv index: current.uvi
-
-5 day forecast
-date: daily.dt [1, 2, 3, 4]
-icon: daily.weather.icon [1, 2, 3, 4]
-temp: daily.temp [1, 2, 3, 4]
-wind: daily.wind_speed [1, 2, 3, 4]
-humidity: daily.humidity [1, 2, 3, 4]
-*/
