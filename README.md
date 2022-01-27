@@ -20,4 +20,6 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
 
+To complete this, I created the HTML and added styling to match the mockup provided. Then created a function using the Open Weather API (hard-coding lat/long) to call for/receive an array of weather data. Using the documentation, I added another API call (to find coordinates based on a city name) and added functionality to the search form, so that a user can type the name of the city they would like to find (removing the hardcoded location). Then, I used the response.json method to capture the data in a variable, to pull specific values for display. I added conditional statements so that, if a user searches for an invalid city, or if the app is unable to connect to the API, the user would be informed through an alert.
+
 © 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
