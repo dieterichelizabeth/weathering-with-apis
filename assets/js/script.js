@@ -30,7 +30,8 @@
  // function to fetch weather data
  var getCityWeather = function(city) {
     // format weather API
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+    // units imperal changes to farenheight
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=imperial";
     // Response object - JSON formats the response
     fetch(apiUrl)
     .then(function(response) {
@@ -58,11 +59,9 @@ var displayCityWeather = function(weather){
     var currentHumid = weather.current.humidity;
     var currentUv = weather.current.uvi;
 
-    document.getElementById("currentCityDateEl").innerHTML = "Dallas";
-
-    console.log (currentTemp);
+    console.log (currentTemp + " degrees");
     console.log (currentDate);
-    console.log (currentHumid);
+    console.log (currentHumid + " % humidity");
     console.log (currentUv);
 };
 
