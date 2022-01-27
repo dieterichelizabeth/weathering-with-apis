@@ -2,15 +2,32 @@
  var apiKey = "91f9a95536d09a6da3e85f409255652c";
  
  // variable to store reference to city form
- var citySearchEl = document.querySelector("#cityname");
+ var citySearchEl = document.querySelector("#city-form");
+ var cityNameEl = document.querySelector("#city-name");
 //  var currentWeatherEl = document.querySelector("#current-city-weather");
 //  var currentCityDateEl = document.querySelector("#current-city-date")
 //  var futureWeatherEl = document.querySelector("#future-city-weather");
 
-// function to search city by name (Dallas is hard-coded)
+// TO-DO: SET UP FAILSAFES FOR USERS (INVALID CITY, NO INTERNET CONNECTION, VALUE MUST BE INPUT)
+// Input validator function?
+var citySearchHandler = function(event) {
+    event.preventDefault();
+    console.log(cityNameEl);
+    var cityname = cityNameEl.value.trim();
+    if (cityname) {
+        citySearch(cityname);
+        cityNameEl.value = "";
+    }
+    else {
+        alert("please search for a valid city");
+    }
+}
+
+// function to search city by name
 var citySearch = function() {
     // https request to the open weather API
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=" + apiKey;  
+    var cityname = cityNameEl.value.trim();
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=" + apiKey;  
     // fetch geolocation based on city name
     fetch(apiUrl).then(function(response) {
     console.log(response);
@@ -35,8 +52,10 @@ var citySearch = function() {
 // function to console.log data
 var displayCityWeather = function(weather){
     // select data type(?) to save as a variable
+    // this value has nothing...
+    console.log(cityNameEl.value);
     // find converter from unix time to human time
-    var currentDate = "Dallas" + "(" + weather.current.dt + ")";
+    var currentDate = cityNameEl.value + "(" + weather.current.dt + ")";
     var currentTemp = weather.current.temp;
     var currentHumid = weather.current.humidity;
     var currentUv = weather.current.uvi;
@@ -48,7 +67,7 @@ var displayCityWeather = function(weather){
     console.log (currentUv);
 };
 
-citySearch ();
+citySearchEl.addEventListener("submit", citySearchHandler);
 
 /*
 Relavent information [daily 0 = today]
