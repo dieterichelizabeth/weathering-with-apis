@@ -1,10 +1,31 @@
  // Key storage variable
  var apiKey = "91f9a95536d09a6da3e85f409255652c";
  
+ // variable to store reference to city form
+ var citySearchEl = document.querySelector("#cityname");
+ var currentWeatherEl = document.querySelector("#current-city-weather");
+ var currentCityDateEl = document.querySelector("#current-city-date")
+ var futureWeatherEl = document.querySelector("#future-city-weather");
+
  // Variables to store latitude/logitude values
  // current values- Dallas, TX
  var latitude = "32.77";
  var longitude = "-96.80";
+
+/* City Serach functionality- pending function to convert city name to lat/long */
+//  // City search function
+//  var citySearch = function(event) {
+//      event.preventDefault();
+//      var cityname = citySearchEl.value.trim();
+//      if (cityname) {
+//          getCityWeather(cityname);
+//         citySearchEl.value = "";
+//      }
+//      else {
+//         alert("please enter a valid City Name");
+//      }
+//      console.log(event);
+//  };
 
  // function to fetch weather data
  var getCityWeather = function(city) {
@@ -15,11 +36,8 @@
     .then(function(response) {
         response.json().then(function(data) {
             // city parameter may need to be changed
-            // displayCityWeather (data,city);
+            displayCityWeather (data, city);
             console.log(data);
-            console.log(data.current.uvi);
-            console.log(data.current.temp);
-            console.log(data.current.humidity);
     })
 })
     // set alert for unable to reach the api (connectivity issue alert)
@@ -27,7 +45,26 @@
         alert("Unable to connect to Open Source Weather");
     });
 };
-   
+
+//FIX
+    // Clear old content when applicalbe (serach enabled)
+    // Once search is enabled- change "Dallas to a city variable"
+    // inserts current city name/data into the H2 of Current Weather display
+
+var displayCityWeather = function(weather){
+    // inserts current city name/data to console
+    var currentDate = "Dallas" + "(" + weather.current.dt + ")";
+    var currentTemp = weather.current.temp;
+    var currentHumid = weather.current.humidity;
+    var currentUv = weather.current.uvi;
+
+    document.getElementById("currentCityDateEl").innerHTML = "Dallas";
+
+    console.log (currentTemp);
+    console.log (currentDate);
+    console.log (currentHumid);
+    console.log (currentUv);
+};
 
 //Create function displayCityWeather
 
