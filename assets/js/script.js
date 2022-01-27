@@ -3,61 +3,44 @@
  
  // variable to store reference to city form
  var citySearchEl = document.querySelector("#cityname");
- var currentWeatherEl = document.querySelector("#current-city-weather");
- var currentCityDateEl = document.querySelector("#current-city-date")
- var futureWeatherEl = document.querySelector("#future-city-weather");
+//  var currentWeatherEl = document.querySelector("#current-city-weather");
+//  var currentCityDateEl = document.querySelector("#current-city-date")
+//  var futureWeatherEl = document.querySelector("#future-city-weather");
 
- // Variables to store latitude/logitude values
- // current values- Dallas, TX
- var latitude = "32.77";
- var longitude = "-96.80";
-
-/* City Serach functionality- pending function to convert city name to lat/long */
-//  // City search function
-//  var citySearch = function(event) {
-//      event.preventDefault();
-//      var cityname = citySearchEl.value.trim();
-//      if (cityname) {
-//          getCityWeather(cityname);
-//         citySearchEl.value = "";
-//      }
-//      else {
-//         alert("please enter a valid City Name");
-//      }
-//      console.log(event);
-//  };
-
- // function to fetch weather data
- var getCityWeather = function(city) {
-    // format weather API
-    // units imperal changes to farenheight
+// function to search city by name (Dallas is hard-coded)
+var citySearch = function() {
+    // https request to the open weather API
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Dallas&appid=" + apiKey;  
+    // fetch geolocation based on city name
+    fetch(apiUrl).then(function(response) {
+    console.log(response);
+    // JSON formats the response under "location"
+    response.json().then(function(location) {
+    // storing lat/long variables
+    var latitude = location.coord.lat;
+    var longitude = location.coord.lon;
+    // request for weather data using lat/long variables
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=imperial";
-    // Response object - JSON formats the response
-    fetch(apiUrl)
-    .then(function(response) {
-        response.json().then(function(data) {
-            // city parameter may need to be changed
-            displayCityWeather (data, city);
-            console.log(data);
-    })
-})
-    // set alert for unable to reach the api (connectivity issue alert)
-    .catch(function(error) {
-        alert("Unable to connect to Open Source Weather");
-    });
-};
+    // fetch the weather data (response)
+    fetch(apiUrl).then(function(response) {
+    // JSON formats the response under data
+    response.json().then(function(data) {
+        // move to displayCityWeather function 
+        displayCityWeather (data);
+        console.log(data);
+    })})
+    })})
+}
 
-//FIX
-    // Clear old content when applicalbe (serach enabled)
-    // Once search is enabled- change "Dallas to a city variable"
-    // inserts current city name/data into the H2 of Current Weather display
-
+// function to console.log data
 var displayCityWeather = function(weather){
-    // inserts current city name/data to console
+    // select data type(?) to save as a variable
+    // find converter from unix time to human time
     var currentDate = "Dallas" + "(" + weather.current.dt + ")";
     var currentTemp = weather.current.temp;
     var currentHumid = weather.current.humidity;
     var currentUv = weather.current.uvi;
+    // find a way to display an icon?
 
     console.log (currentTemp + " degrees");
     console.log (currentDate);
@@ -65,9 +48,7 @@ var displayCityWeather = function(weather){
     console.log (currentUv);
 };
 
-//Create function displayCityWeather
-
-getCityWeather();
+citySearch ();
 
 /*
 Relavent information [daily 0 = today]
@@ -84,6 +65,32 @@ temp: daily.temp [1, 2, 3, 4]
 wind: daily.wind_speed [1, 2, 3, 4]
 humidity: daily.humidity [1, 2, 3, 4]
 */
+
+/* City Serach functionality- pending function to convert city name to lat/long */
+//  // City search function
+//  var citySearch = function(event) {
+//      event.preventDefault();
+//      var cityname = citySearchEl.value.trim();
+//      if (cityname) {
+//          getCityWeather(cityname);
+//         citySearchEl.value = "";
+//      }
+//      else {
+//         alert("please enter a valid City Name");
+//      }
+//      console.log(event);
+//  };
+
+    //set alert for unable to reach the api (connectivity issue alert)
+//     .catch(function(error) {
+//         alert("Unable to connect to Open Source Weather");
+//     });
+// };
+
+//FIX
+    // Clear old content when applicalbe (serach enabled)
+    // Once search is enabled- change "Dallas to a city variable"
+    // inserts current city name/data into the H2 of Current Weather display
 
 // //variables to store a reference to the show repositories element
 // var repoContainerEl = document.querySelector("#repos-container");
@@ -141,6 +148,7 @@ https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
 https://coding-boot-camp.github.io/full-stack/
 https://docs.github.com/en/rest
 (API documentation) https://openweathermap.org/api/one-call-api
+(API city documentation) https://openweathermap.org/current#name
 */
 
 /*
