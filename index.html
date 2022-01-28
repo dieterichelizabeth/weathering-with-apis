@@ -52,46 +52,64 @@
 
           <div class="col-lg-8 mb-4 p-2">
             <!-- Section for sample city placeholder-->
-            <div id="current-city-weather" class="border border-dark p-2 my-4">
-              <h2 id="current-city-date" class="col-lg-12 p-0">
-                Dallas (1/26/2023) ☁️
-              </h2>
-              <p>Temp:</p>
-              <p>Wind:</p>
-              <p>Humidity:</p>
-              <p>
+            <div class="border border-dark p-2 my-4">
+              <div>
+                <h2 id="current-city-date" class="col-lg-12 p-0">
+                  Dallas (1/26/2023) ☁️
+                </h2>
+              </div>
+              <p id="current-temp">
+                Temp: <br /><br />
+                Wind: <br /><br />
+                Humidity: <br /><br />
                 UV Index:
                 <span class="bg-success rounded text-center p-2 w-25">UV</span>
               </p>
             </div>
 
             <!-- Section for 5 day forecast-->
-            <div id="future-city-weather">
+            <div>
               <h3 class="text-left col-lg-12">5-Day Forecast:</h3>
               <section class="row justify-content-around ml-2 mr-2">
                 <div class="col-lg-3 bg-dark text-light p-2">
-                  <h4>1/26/2022</h4>
-                  <p>Temp:</p>
-                  <p>Wind:</p>
-                  <p>Humidity:</p>
+                  <div>
+                    <h4 id="day-one-date">1/26/2022</h4>
+                  </div>
+                  <p id="dayOne">
+                    Temp: <br /><br />
+                    Wind: <br /><br />
+                    Humidity: <br /><br />
+                  </p>
                 </div>
                 <div class="col-lg-3 bg-dark text-light p-2">
-                  <h4>1/27/2022</h4>
-                  <p>Temp:</p>
-                  <p>Wind:</p>
-                  <p>Humidity:</p>
+                  <div>
+                    <h4 id="day-two-date">1/27/2022</h4>
+                  </div>
+                  <p id="dayTwo">
+                    Temp: <br /><br />
+                    Wind: <br /><br />
+                    Humidity: <br /><br />
+                  </p>
                 </div>
                 <div class="col-lg-3 bg-dark text-light p-2">
-                  <h4>1/28/2022</h4>
-                  <p>Temp:</p>
-                  <p>Wind:</p>
-                  <p>Humidity:</p>
+                  <div>
+                    <h4 id="day-three-date">1/28/2022</h4>
+                  </div>
+                  <p id="dayThree">
+                    Temp: <br /><br />
+                    Wind: <br /><br />
+                    Humidity: <br /><br />
+                  </p>
                 </div>
                 <div class="col-lg-3 bg-dark text-light p-2">
-                  <h4>1/29/2022</h4>
-                  <p>Temp:</p>
-                  <p>Wind:</p>
-                  <p>Humidity:</p>
+                  <div>
+                    <h4 id="day-four-date">1/29/2022</h4>
+                  </div>
+                  <p id="dayFour">
+                    Temp: <br /><br />
+                    Wind: <br /><br />
+                    Humidity: <br /><br />
+                  </p>
                 </div>
               </section>
             </div>
