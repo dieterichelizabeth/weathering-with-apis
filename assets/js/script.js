@@ -89,8 +89,7 @@ var displayCityWeather = function(weather){
     "Temp: " + weather.current.temp + " °F" + linebreak +
     "Wind: " + weather.current.wind_speed + "mph" + linebreak +
     "Humidity: " + weather.current.humidity + "%" + linebreak +
-    "UV Index: " + weather.current.uvi + linebreak +
-   
+    "UV Index: " + weather.current.uvi;
     currentTemp.appendChild(linebreak);
 
     // Updates 5 day forecase to display Future Weather Date and data
@@ -98,7 +97,8 @@ var displayCityWeather = function(weather){
     // Displays Day 1
     var dayOne = document.getElementById("day-one-date");
     var unixDayOne = weather.daily[1].dt;
-    var date1 = new Date(unixDayOne*1000);
+    var humanFormat1 = new Date(unixDayOne*1000);
+    var date1 = humanFormat1.toLocaleDateString();
     dayOne.innerHTML = "(" + date1 + ")";
 
     var futureDayOne = document.getElementById("dayOne")
@@ -110,10 +110,9 @@ var displayCityWeather = function(weather){
     // Displays Day 2
     var dayTwo = document.getElementById("day-two-date");
     var unixDayTwo = weather.daily[2].dt;
-    var date2 = new Date(unixDayTwo*1000);
+    var humanFormat2 = new Date(unixDayTwo*1000);
+    var date2 = humanFormat2.toLocaleDateString();
     dayTwo.innerHTML = "(" + date2 + ")";
-    console.log(date2);
-    console.log(date2.length);
 
     var futureDayTwo = document.getElementById("dayTwo")
     futureDayTwo.innerHTML = 
@@ -124,7 +123,8 @@ var displayCityWeather = function(weather){
     // Displays Day 3
     var dayThree = document.getElementById("day-three-date");
     var unixDayThree = weather.daily[3].dt;
-    var date3 = new Date(unixDayThree*1000);
+    var humanFormat3 = new Date(unixDayThree*1000);
+    var date3 = humanFormat3.toLocaleDateString();
     dayThree.innerHTML = date3;
 
     var futureDayThree = document.getElementById("dayThree")
@@ -136,7 +136,8 @@ var displayCityWeather = function(weather){
     // Displays Day 4
     var dayFour = document.getElementById("day-four-date");
     var unixDayFour = weather.daily[4].dt;
-    var date4 = new Date(unixDayFour*1000);
+    var humanFormat4 = new Date(unixDayFour*1000);
+    var date4 = humanFormat4.toLocaleDateString();
     dayFour.innerHTML = date4;
 
     var futureDayFour = document.getElementById("dayFour")
@@ -148,7 +149,8 @@ var displayCityWeather = function(weather){
     // Displays Day 5
     var dayFive = document.getElementById("day-five-date");
     var unixDayFive = weather.daily[5].dt;
-    var date5 = new Date(unixDayFive*1000);
+    var humanFormat5 = new Date(unixDayFive*1000);
+    var date5 = humanFormat5.toLocaleDateString();
     dayFive.innerHTML = date5;
 
     var futureDayFive = document.getElementById("dayFive")
@@ -163,11 +165,6 @@ var displayCityWeather = function(weather){
 
 citySearchEl.addEventListener("submit", citySearchHandler);
    
-    // find converter from unix time to human time (get rid of the time!)
-    // link icon to api for display
-        // the icon needs to run through a function to be displayed as an image. URL http://openweathermap.org/img/wn/10d@2x.png
-            //10d changes- different ones change ex. 02d
-                //https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 (documentation)
     // the goal of making the HTML first was to display the user's current location weather first...how do I do this?
      
 

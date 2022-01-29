@@ -55,4 +55,8 @@ Resources
     (documentation for response.json) https://developer.mozilla.org/en-US/docs/Web/API/Response/json
     (documentation for .querySelector) https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
     (documentation for .innerhtml) https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
+    (docs for image constructor) https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
+    (documentation for API icons) https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 
+    (docs for date constructor) https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
+    (docs for local date string method) https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
 */
