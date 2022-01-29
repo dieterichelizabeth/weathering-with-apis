@@ -37,9 +37,10 @@ Step 4: Create function displayRepos to display both the repos list and search t
             - filter the information that you would like to recieve/display
     - clear old data before displaying new data to HTML
             - display response data on the page
-            - create UV index with colors for favorable, moderate, or severe (red, green, yellow?)
-            - how to display an icon?
-            - convert unix timestamp
+            - use conditional statements to create UV index with colors for 
+              favorable, moderate, or severe (red, green, yellow?)
+            - create an image to append to HTML for the icon(s)
+            - convert unix timestamp with toLocaleDateString()
 Step 5. Create an area for storing previously searched cities (under the searchbar)
         - dynamically create more HTML and inject the list of city data to the search history column.
             - when a city (in history) is clicked, it's current weather data/forcast is re-searched/returned from the weather API
@@ -59,4 +60,5 @@ Resources
     (documentation for API icons) https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 
     (docs for date constructor) https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date
     (docs for local date string method) https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
-*/
+    (uvi index) https://www.who.int/news-room/questions-and-answers/item/radiation-the-ultraviolet-(uv)-index
+    */

@@ -93,12 +93,22 @@ var displayCityWeather = function(weather){
     
     // function to create style the span
    function uvIndex() {
+        // set variable for uvi
+        var uvi = weather.current.uvi
         // var currentTemp = document.getElementById("current-temp");
         var newSpan = document.createElement('span');
-        // uses image constructor
-        newSpan.setAttribute('class', 'bg-success rounded text-center p-2 w-25');
-        // change the p
-        newSpan.innerHTML = weather.current.uvi
+        // if uvi is "2" or less - green
+        if (uvi <= 2 ) {
+            newSpan.setAttribute('class', 'bg-success rounded text-center p-2 w-25');
+        // if uvi is between "3" to "5" - yellow
+        } else if (uvi >=3 && uvi <= 5) {
+            newSpan.setAttribute('class', 'bg-warning rounded text-center p-2 w-25');
+        // if uvi is above "5" - red
+        } else {
+            newSpan.setAttribute('class', 'bg-danger rounded text-center p-2 w-25');
+        }
+        // display uvi value
+        newSpan.innerHTML = uvi
         // append to h2 element
         document.getElementById('current-temp').appendChild(newSpan);
     } 
@@ -115,6 +125,16 @@ var displayCityWeather = function(weather){
     var date1 = humanFormat1.toLocaleDateString();
     dayOne.innerHTML = "(" + date1 + ")";
 
+    // function to grab the image from Open Weather's Api to display
+    function iconImage1() {
+        // uses image constructor
+        var img = new Image();
+        var iconSource = weather.daily[1].weather[0].icon;
+        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+        // append to h2 element
+        document.getElementById('day-one-date').appendChild(img);
+    } 
+
     var futureDayOne = document.getElementById("dayOne")
     futureDayOne.innerHTML = 
     "Temp: " + weather.daily[1].temp.day + " °F" + linebreak +
@@ -129,6 +149,16 @@ var displayCityWeather = function(weather){
     var date2 = humanFormat2.toLocaleDateString();
     dayTwo.innerHTML = "(" + date2 + ")";
 
+    // function to grab the image from Open Weather's Api to display
+    function iconImage2() {
+        // uses image constructor
+        var img = new Image();
+        var iconSource = weather.daily[2].weather[0].icon;
+        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+        // append to h2 element
+        document.getElementById('day-two-date').appendChild(img);
+    } 
+
     var futureDayTwo = document.getElementById("dayTwo")
     futureDayTwo.innerHTML = 
     "Temp: " + weather.daily[2].temp.day + " °F" + linebreak +
@@ -141,6 +171,16 @@ var displayCityWeather = function(weather){
     var humanFormat3 = new Date(unixDayThree*1000);
     var date3 = humanFormat3.toLocaleDateString();
     dayThree.innerHTML = date3;
+
+    // function to grab the image from Open Weather's Api to display
+    function iconImage3() {
+        // uses image constructor
+        var img = new Image();
+        var iconSource = weather.daily[3].weather[0].icon;
+        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+        // append to h2 element
+        document.getElementById('day-three-date').appendChild(img);
+    } 
 
     var futureDayThree = document.getElementById("dayThree")
     futureDayThree.innerHTML = 
@@ -155,6 +195,16 @@ var displayCityWeather = function(weather){
     var date4 = humanFormat4.toLocaleDateString();
     dayFour.innerHTML = date4;
 
+     // function to grab the image from Open Weather's Api to display
+     function iconImage4() {
+        // uses image constructor
+        var img = new Image();
+        var iconSource = weather.daily[4].weather[0].icon;
+        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+        // append to h2 element
+        document.getElementById('day-four-date').appendChild(img);
+    } 
+
     var futureDayFour = document.getElementById("dayFour")
     futureDayFour.innerHTML = 
     "Temp: " + weather.daily[4].temp.day + " °F" + linebreak +
@@ -168,6 +218,16 @@ var displayCityWeather = function(weather){
     var date5 = humanFormat5.toLocaleDateString();
     dayFive.innerHTML = date5;
 
+    // function to grab the image from Open Weather's Api to display
+    function iconImage5() {
+        // uses image constructor
+        var img = new Image();
+        var iconSource = weather.daily[5].weather[0].icon;
+        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+        // append to h2 element
+        document.getElementById('day-five-date').appendChild(img);
+    } 
+
     var futureDayFive = document.getElementById("dayFive")
     futureDayFive.innerHTML = 
     "Temp: " + weather.daily[5].temp.day + " °F" + linebreak +
@@ -176,12 +236,17 @@ var displayCityWeather = function(weather){
 
 
     iconImage();
+    iconImage1();
+    iconImage2();
+    iconImage3();
+    iconImage4();
+    iconImage5();
     uvIndex(currentTemp);
 };}
 
 citySearchEl.addEventListener("submit", citySearchHandler);
    
-    // the goal of making the HTML first was to display the user's current location weather first...how do I do this?
+// the goal of making the HTML first was to display the user's current location weather first...how do I do this?
      
 
   
