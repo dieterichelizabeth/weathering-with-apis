@@ -67,7 +67,20 @@ var displayCityWeather = function(weather){
 
     // Updates Current Weather widget to display Current Weather Date and data
     var CurrentDate = document.getElementById("current-city-date");
-    CurrentDate.innerHTML = "Dallas" + "(" + weather.current.dt + ")" + weather.current.weather[0].icon;
+        // formats the date from unix to human time
+        var unixUTCCurrent = weather.current.dt;
+        var currentDate= new Date(unixUTCCurrent*1000);
+        var date = currentDate.toLocaleDateString();
+
+        // function to grab the image from Open Weather's Api to display
+        function iconImage() {
+            var img = new Image();
+            var iconSource = weather.current.weather[0].icon;
+            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            document.getElementById('current-city-date').appendChild(img);
+        } 
+
+    CurrentDate.innerHTML = "Dallas" + "(" + date + ")";
 
     var currentTemp = document.getElementById("current-temp");
     currentTemp.innerHTML = 
@@ -82,7 +95,9 @@ var displayCityWeather = function(weather){
 
     // Displays Day 1
     var dayOne = document.getElementById("day-one-date");
-    dayOne.innerHTML = weather.daily[1].dt;
+    var unixDayOne = weather.daily[1].dt;
+    var date1 = new Date(unixDayOne*1000);
+    dayOne.innerHTML = "(" + date1 + ")";
 
     var futureDayOne = document.getElementById("dayOne")
     futureDayOne.innerHTML = 
@@ -92,7 +107,11 @@ var displayCityWeather = function(weather){
 
     // Displays Day 2
     var dayTwo = document.getElementById("day-two-date");
-    dayTwo.innerHTML = weather.daily[2].dt;
+    var unixDayTwo = weather.daily[2].dt;
+    var date2 = new Date(unixDayTwo*1000);
+    dayTwo.innerHTML = "(" + date2 + ")";
+    console.log(date2);
+    console.log(date2.length);
 
     var futureDayTwo = document.getElementById("dayTwo")
     futureDayTwo.innerHTML = 
@@ -102,7 +121,9 @@ var displayCityWeather = function(weather){
 
     // Displays Day 3
     var dayThree = document.getElementById("day-three-date");
-    dayThree.innerHTML = weather.daily[3].dt;
+    var unixDayThree = weather.daily[3].dt;
+    var date3 = new Date(unixDayThree*1000);
+    dayThree.innerHTML = date3;
 
     var futureDayThree = document.getElementById("dayThree")
     futureDayThree.innerHTML = 
@@ -112,7 +133,9 @@ var displayCityWeather = function(weather){
 
     // Displays Day 4
     var dayFour = document.getElementById("day-four-date");
-    dayFour.innerHTML = weather.daily[4].dt;
+    var unixDayFour = weather.daily[4].dt;
+    var date4 = new Date(unixDayFour*1000);
+    dayFour.innerHTML = date4;
 
     var futureDayFour = document.getElementById("dayFour")
     futureDayFour.innerHTML = 
@@ -120,12 +143,16 @@ var displayCityWeather = function(weather){
     "Wind: " + weather.daily[4].wind_speed + "mph" + linebreak +
     "Humidity: " + weather.daily[4].humidity + "%";
 
+    iconImage();
 };}
 
 citySearchEl.addEventListener("submit", citySearchHandler);
    
-    // find converter from unix time to human time
+    // find converter from unix time to human time (get rid of the time!)
     // link icon to api for display
+        // the icon needs to run through a function to be displayed as an image. URL http://openweathermap.org/img/wn/10d@2x.png
+            //10d changes- different ones change ex. 02d
+                //https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 (documentation)
     // the goal of making the HTML first was to display the user's current location weather first...how do I do this?
      
 

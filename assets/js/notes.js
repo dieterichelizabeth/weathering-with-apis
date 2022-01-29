@@ -32,10 +32,10 @@ DONE Step 3: Create function citySearchHandler to recieve data from HTML form su
         -Step 3.2: add an event listener to the <form> element to execute a function on submission
         -Step 3.2: add if conditional statement to confirm the user has input a value (else, alert)
 Step 4: Create function displayRepos to display both the repos list and search term (currently in the console)
-        -Step 4.1: Create a for loop within the funciton to diplay the results in html
+        -Step 4.1: Create a funciton to diplay the results in html
             - will need to display items as strings?
             - filter the information that you would like to recieve/display
-            - clear old data before displaying new data to HTML
+    - clear old data before displaying new data to HTML
             - display response data on the page
             - create UV index with colors for favorable, moderate, or severe (red, green, yellow?)
             - how to display an icon?
@@ -54,4 +54,5 @@ Resources
     (API city documentation) https://openweathermap.org/current#name
     (documentation for response.json) https://developer.mozilla.org/en-US/docs/Web/API/Response/json
     (documentation for .querySelector) https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+    (documentation for .innerhtml) https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
 */
