@@ -89,7 +89,21 @@ var displayCityWeather = function(weather){
     "Temp: " + weather.current.temp + " °F" + linebreak +
     "Wind: " + weather.current.wind_speed + "mph" + linebreak +
     "Humidity: " + weather.current.humidity + "%" + linebreak +
-    "UV Index: " + weather.current.uvi;
+    "UV Index: ";
+    
+    // function to create style the span
+   function uvIndex() {
+        // var currentTemp = document.getElementById("current-temp");
+        var newSpan = document.createElement('span');
+        // uses image constructor
+        newSpan.setAttribute('class', 'bg-success rounded text-center p-2 w-25');
+        // change the p
+        newSpan.innerHTML = weather.current.uvi
+        // append to h2 element
+        document.getElementById('current-temp').appendChild(newSpan);
+    } 
+
+    // THIS DOES NOTHING!!! WHY DOES IT DO NOTHING!!! 
     currentTemp.appendChild(linebreak);
 
     // Updates 5 day forecase to display Future Weather Date and data
@@ -106,6 +120,7 @@ var displayCityWeather = function(weather){
     "Temp: " + weather.daily[1].temp.day + " °F" + linebreak +
     "Wind: " + weather.daily[1].wind_speed + "mph" + linebreak +
     "Humidity: " + weather.daily[1].humidity + "%";
+    // add the icon todays!
 
     // Displays Day 2
     var dayTwo = document.getElementById("day-two-date");
@@ -161,6 +176,7 @@ var displayCityWeather = function(weather){
 
 
     iconImage();
+    uvIndex(currentTemp);
 };}
 
 citySearchEl.addEventListener("submit", citySearchHandler);
