@@ -45,10 +45,25 @@ var citySearch = function() {
         response.json().then(function(data) {
                 
             // move to displayCityWeather function 
-            displayCityWeather (data);
+            displayCityWeather (data, cityname);
             console.log(data);
+            cityStorage(cityname);
         })})
-        })}
+        })
+        // add buttons to the screen
+        function cityStorage(cityname) {
+            // set variable for uvi
+            var previousNames = cityname;
+            // var currentTemp = document.getElementById("current-temp");
+            var newButton = document.createElement('button');
+            // set the class
+            newButton.setAttribute('class', 'btn btn-secondary rounded text-center text-dark col-lg-12 mb-4');
+            // display uvi value
+            newButton.innerHTML = previousNames
+            // append to h2 element
+            document.getElementById('city-storage').appendChild(newButton);
+        } 
+    }
     // if there is no response based on user input - alert (invalid city)
     else {
         alert("City not found")
@@ -82,7 +97,7 @@ var displayCityWeather = function(weather){
             document.getElementById('current-city-date').appendChild(img);
         } 
 
-    CurrentDate.innerHTML = "Dallas" + "(" + date + ")";
+    CurrentDate.innerHTML = cityname + "(" + date + ")";
 
     var currentTemp = document.getElementById("current-temp");
     currentTemp.innerHTML = 

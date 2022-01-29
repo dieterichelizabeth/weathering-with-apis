@@ -45,9 +45,9 @@ Step 5. Create an area for storing previously searched cities (under the searchb
         - dynamically create more HTML and inject the list of city data to the search history column.
             - when a city (in history) is clicked, it's current weather data/forcast is re-searched/returned from the weather API
 Step 6: VERY IMPORTANT- CREATE ENV FILE AND NEW API KEY! DELETE OLD KEY FOR SECURITY PURPOSES 
-BUG: UNABLE TO USE CITYNAME ELEMENT TO CONSOLE DATE 
 BUG: OBJECT HTML BR ELEMENT INSTEAD OF BREAK IN LINE
-ISSUE: CODE NEEDS REFACTORING ASAP!!!       
+ISSUE: CODE NEEDS REFACTORING ASAP!!!
+BUG: HOW TO PREVENT USERS FROM ADDING DUPLICATE BUTTON TO THE SEARCH HISTORY       
 */
 
 /*
