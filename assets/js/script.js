@@ -247,6 +247,7 @@ var displayCityWeather = function(weather){
 citySearchEl.addEventListener("submit", citySearchHandler);
    
 // the goal of making the HTML first was to display the user's current location weather first...how do I do this?
+// TO DO: 
      
 
   

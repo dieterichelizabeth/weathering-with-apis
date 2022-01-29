@@ -31,12 +31,12 @@ DONE Step 2: Create citySearch function to fetch data from Open Weather API and 
 DONE Step 3: Create function citySearchHandler to recieve data from HTML form submission and pass through citySearch
         -Step 3.2: add an event listener to the <form> element to execute a function on submission
         -Step 3.2: add if conditional statement to confirm the user has input a value (else, alert)
-Step 4: Create function displayRepos to display both the repos list and search term (currently in the console)
+DONE Step 4: Create function displayRepos to display both the repos list and search term (currently in the console)
         -Step 4.1: Create a funciton to diplay the results in html
-            - will need to display items as strings?
-            - filter the information that you would like to recieve/display
-    - clear old data before displaying new data to HTML
-            - display response data on the page
+            - filter the information that you would like to recieve/display through variables
+              targeting values in the JSON
+            - insert the data with .innerhtml
+    - clear old data before displaying new data to HTML ?
             - use conditional statements to create UV index with colors for 
               favorable, moderate, or severe (red, green, yellow?)
             - create an image to append to HTML for the icon(s)
@@ -45,7 +45,9 @@ Step 5. Create an area for storing previously searched cities (under the searchb
         - dynamically create more HTML and inject the list of city data to the search history column.
             - when a city (in history) is clicked, it's current weather data/forcast is re-searched/returned from the weather API
 Step 6: VERY IMPORTANT- CREATE ENV FILE AND NEW API KEY! DELETE OLD KEY FOR SECURITY PURPOSES 
-BUG: UNABLE TO USE CITYNAME ELEMENT TO CONSOLE DATE        
+BUG: UNABLE TO USE CITYNAME ELEMENT TO CONSOLE DATE 
+BUG: OBJECT HTML BR ELEMENT INSTEAD OF BREAK IN LINE
+ISSUE: CODE NEEDS REFACTORING ASAP!!!       
 */
 
 /*
