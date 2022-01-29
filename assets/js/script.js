@@ -63,7 +63,7 @@ var citySearch = function() {
 
 // function to display data
 var displayCityWeather = function(weather){
-    linebreak = document.createElement("br");
+    linebreak = document.createElement('br');
 
     // Updates Current Weather widget to display Current Weather Date and data
     var CurrentDate = document.getElementById("current-city-date");
@@ -74,9 +74,11 @@ var displayCityWeather = function(weather){
 
         // function to grab the image from Open Weather's Api to display
         function iconImage() {
+            // uses image constructor
             var img = new Image();
             var iconSource = weather.current.weather[0].icon;
             img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            // append to h2 element
             document.getElementById('current-city-date').appendChild(img);
         } 
 
@@ -142,6 +144,19 @@ var displayCityWeather = function(weather){
     "Temp: " + weather.daily[4].temp.day + " °F" + linebreak +
     "Wind: " + weather.daily[4].wind_speed + "mph" + linebreak +
     "Humidity: " + weather.daily[4].humidity + "%";
+
+    // Displays Day 5
+    var dayFive = document.getElementById("day-five-date");
+    var unixDayFive = weather.daily[5].dt;
+    var date5 = new Date(unixDayFive*1000);
+    dayFive.innerHTML = date5;
+
+    var futureDayFive = document.getElementById("dayFive")
+    futureDayFive.innerHTML = 
+    "Temp: " + weather.daily[5].temp.day + " °F" + linebreak +
+    "Wind: " + weather.daily[5].wind_speed + "mph" + linebreak +
+    "Humidity: " + weather.daily[5].humidity + "%";
+
 
     iconImage();
 };}
