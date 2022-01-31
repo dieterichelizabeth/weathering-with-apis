@@ -1,6 +1,7 @@
  // API key storage
  var apiKey = "91f9a95536d09a6da3e85f409255652c";
- 
+// console.log(process.env.apiKey); 
+
  // City search form storage
  var citySearchEl = document.querySelector("#city-form");
  var cityNameEl = document.querySelector("#city-name");
@@ -78,7 +79,7 @@ var citySearch = function() {
 
 // function to display data
 var displayCityWeather = function(weather){
-    linebreak = document.createElement('br');
+    linebreak = "<br>";
 
     // Updates Current Weather widget to display Current Weather Date and data
     var CurrentDate = document.getElementById("current-city-date");
@@ -129,7 +130,7 @@ var displayCityWeather = function(weather){
     } 
 
     // THIS DOES NOTHING!!! WHY DOES IT DO NOTHING!!! 
-    currentTemp.appendChild(linebreak);
+    //currentTemp.appendChild(linebreak);
 
     // Updates 5 day forecase to display Future Weather Date and data
 
