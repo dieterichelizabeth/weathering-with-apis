@@ -6,6 +6,7 @@ var citySearchEl = document.querySelector("#city-form");
 var cityNameEl = document.querySelector("#city-name");
 var searchButtonEl = document.querySelector("#city-storage");
 
+// Local storage variables
 var cityCount = 0;
 var searchHistory = [];
 
@@ -28,44 +29,31 @@ var citySearchHandler = function() {
     // https request to the open weather API for geolocation
     var cityname = cityNameEl.value.trim();
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=" + apiKey;  
-        // fetch geolocation based on city name
         fetch(apiUrl).then(function(response) {
-        console.log(response);
+        //console.log(response);
     
-    // Conditional: if Open weather API returns a valid response- use lat/lon in openWeatherRequest function
+    // Condition: if Open weather API returns a valid response- use lat/lon in openWeatherRequest function
     if (response.ok) {
-            // JSON formats the response under "location"
             response.json().then(function(location) {
             // storing lat/long variables
             var latitude = location.coord.lat;
             var longitude = location.coord.lon;
+
+            // move to next functions (request weather data and save form input to a button)
             openWeatherRequest(latitude, longitude, cityname);
-            // save value as a button
             cityStorage(latitude, longitude, cityname);
     })}
-    // if there is no response based on user input - alert (invalid city)
+    // if there is no response from API based on user input - alert (invalid city)
     else {
         alert("City not found")
     }
 })}        
 
-
-// ONCE A CITY IS SEARCHED, IT IS PASSED THROUGH THE VALIDATOR
-// IF VALIDATED, IT RUNS THROUGH THE GEOLOCATOR
-// SAVE THE VALUES FROM THE GEO-LOCATOR INTO AN ARRAY?
-// THE BUTTON NEEDS TO BE SAVED AS TIED TO THE ARRAY IN LOCAL STORAGE
-// IF THE GEOLOCATOR RETURNS LAT/LONG, SAVE THE BUTTON FOR FUTURE SEARCHES
-
-// IF THE USER CLICKS A BUTTON, IT RUNS THE REQUEST THROUGH THE FUNCTION
-// GRAB VALUES BY ARRAY
-
-// THEN USE THOSE COORDINATES TO REQUEST AGAIN IN NEXT FUNCTION
-
-// add buttons by search
+// Add buttons by search
 var cityStorage = function (latitude, longitude, cityname) {
         // create new button
         var newButtonEl = document.createElement('button');
-        // set the id
+        // give the button a new #
         newButtonEl.setAttribute('id', cityCount);
         // set the class
         newButtonEl.setAttribute('class', 'btn btn-secondary rounded text-center text-dark col-lg-12 mb-4');
@@ -92,17 +80,19 @@ var cityStorage = function (latitude, longitude, cityname) {
 // function to grab values to run through openWEatherRequest
 var reSearch = function(event) {
     var targetEl = event.target;
-    var i = targetEl.id; // item #
-    console.log(i);
+    // get item #
+    var i = targetEl.id; 
     var newSearch = localStorage.getItem("search");
-    var searchR = JSON.parse(newSearch);
-    // var correct = searchR.i 
-    var cityInfo = (searchR[i]);
-    console.log(cityInfo);
+    var cityData = JSON.parse(newSearch);
+    // grab city arrays from arrays
+    var cityInfo = (cityData[i]);
+    // grab values to use from correct city array
     var cityname = cityInfo[0];
     var latitude = cityInfo[1];
     var longitude = cityInfo[2];
-    console.log(cityname, latitude, longitude);
+    console.log("Displaying the weather for -", cityname, latitude, longitude);
+
+    // pass to openWeatherRequest function
     openWeatherRequest(latitude, longitude, cityname);
 }
 
@@ -117,7 +107,7 @@ var openWeatherRequest = function(latitude, longitude, cityname) {
                 
         // move to displayWeather function and City storage?
         displayWeather (data, cityname);
-        console.log(data);
+        //console.log(data);
         })})
     // notice: unable to connect to the API
     .catch(function(error) {
