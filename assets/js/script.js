@@ -97,8 +97,13 @@ var reSearch = function(event) {
     var newSearch = localStorage.getItem("search");
     var searchR = JSON.parse(newSearch);
     // var correct = searchR.i 
-    console.log(searchR[i]);
-
+    var cityInfo = (searchR[i]);
+    console.log(cityInfo);
+    var cityname = cityInfo[0];
+    var latitude = cityInfo[1];
+    var longitude = cityInfo[2];
+    console.log(cityname, latitude, longitude);
+    openWeatherRequest(latitude, longitude, cityname);
 }
 
 // Function to request weather data
