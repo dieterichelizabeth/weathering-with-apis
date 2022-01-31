@@ -21,7 +21,7 @@ WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
 ```
 
-Click to view the [deployed application]()
+Click to view the [deployed application](https://dieterichelizabeth.github.io/weathering-with-apis/)
 
 ## Screenshots
 
