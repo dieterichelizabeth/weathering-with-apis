@@ -45,7 +45,10 @@ Step 5. Create an area for storing previously searched cities (under the searchb
             - when a city (in history) is clicked, it's current weather data/forcast is re-searched/returned from the weather API
 Step 6: Create an array to save cities to local storage
         - seperate the geolocation fetch and weather fetch to two seperate functions
-        -
+        - refactor create button function (cityStorage)
+        - push items from the create button function to an array. Add values to local storage
+        - add event listener for buttons
+        - grab information from local storage through event.target
 Future step: Create an env file and new api key
 Future step: code needs refactoring at some point
 Future step: the goal of making the HTML first was to display the user's current location weather first...
