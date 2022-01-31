@@ -1,28 +1,33 @@
- // API key storage
- var apiKey = "91f9a95536d09a6da3e85f409255652c";
-// console.log(process.env.apiKey); 
+// API key storage
+var apiKey = "91f9a95536d09a6da3e85f409255652c";
 
- // City search form storage
- var citySearchEl = document.querySelector("#city-form");
- var cityNameEl = document.querySelector("#city-name");
+// City search form storage
+var citySearchEl = document.querySelector("#city-form");
+var cityNameEl = document.querySelector("#city-name");
 
+// var searchHistory = [];
 
 // Input validator function
-var citySearchHandler = function(event) {
+// on submit - data is transferred to the citySearch Handler
+var inputValidator = function(event) {
     event.preventDefault();
     var cityname = cityNameEl.value.trim();
     // if the User input value to the search -> move to citySearch function
     if (cityname) {
-        citySearch(cityname);
+        citySearchHandler (cityname);
         cityNameEl.value = "";
     }
     else {
-        alert("please search for a valid city");
+        alert("Please enter the name of a city.");
     }
+// function to create key
+    // Save search to local storage
+    // var citySave = JSON.stringify(cityname);
+    // localStorage.setItem("City", citySave);
 }
 
-// function to search city by name
-var citySearch = function() {
+// Function to search city by name
+var citySearchHandler = function() {
     // https request to the open weather API for geolocation
     var cityname = cityNameEl.value.trim();
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityname + "&appid=" + apiKey;  
@@ -37,7 +42,16 @@ var citySearch = function() {
             // storing lat/long variables
             var latitude = location.coord.lat;
             var longitude = location.coord.lon;
-        
+            openWeatherRequest(latitude, longitude, cityname);
+    })}
+    // if there is no response based on user input - alert (invalid city)
+    else {
+        alert("City not found")
+    }
+})}        
+
+// Function to request weather data
+var openWeatherRequest = function(latitude, longitude, cityname) { 
     // request for weather data using lat/long variables
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey + "&units=imperial";
         // fetch the weather data (response)
@@ -45,13 +59,19 @@ var citySearch = function() {
         // JSON formats the response under data
         response.json().then(function(data) {
                 
-            // move to displayCityWeather function 
-            displayCityWeather (data, cityname);
+            // move to displayWeather function and City storage?
+            displayWeather (data, cityname);
             console.log(data);
             cityStorage(cityname);
         })})
-        })
-        // add buttons to the screen
+    // notice: unable to connect to the API
+    .catch(function(error) {
+        alert("Unable to connect to Open Source Weather");
+    });
+} 
+
+// add buttons to the screen
+        // needs to be re-factored
         function cityStorage(cityname) {
             // set variable for uvi
             var previousNames = cityname;
@@ -60,58 +80,47 @@ var citySearch = function() {
             // set the class
             newButton.setAttribute('class', 'btn btn-secondary rounded text-center text-dark col-lg-12 mb-4');
             // display uvi value
+            // inner HTML should be the pulled JSON string [0- for city's name]
             newButton.innerHTML = previousNames
             // append to h2 element
             document.getElementById('city-storage').appendChild(newButton);
-        } 
-    }
-    // if there is no response based on user input - alert (invalid city)
-    else {
-        alert("City not found")
-    }
-})
-    
-// notice: unable to connect to the API
-.catch(function(error) {
-    alert("Unable to connect to Open Source Weather");
-});
+}
 
-
-// function to display data
-var displayCityWeather = function(weather){
+// Function to dipsplay weather data
+var displayWeather = function(weather, cityname){
     linebreak = "<br>";
 
-    // Updates Current Weather widget to display Current Weather Date and data
+// Updates Current (today's) Date and Forecast
     var CurrentDate = document.getElementById("current-city-date");
-        // formats the date from unix to human time
+        
+    // formats the date from unix to human time
         var unixUTCCurrent = weather.current.dt;
         var currentDate= new Date(unixUTCCurrent*1000);
         var date = currentDate.toLocaleDateString();
+        CurrentDate.innerHTML = cityname + "(" + date + ")";
 
-        // function to grab the image from Open Weather's Api to display
-        function iconImage() {
-            // uses image constructor
-            var img = new Image();
-            var iconSource = weather.current.weather[0].icon;
-            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
-            // append to h2 element
-            document.getElementById('current-city-date').appendChild(img);
-        } 
+    // function to grab the image from Open Weather's Api to display
+    function iconImage() {
+        // uses image constructor
+        var img = new Image();
+        var iconSource = weather.current.weather[0].icon;
+        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+        // append to h2 element
+        document.getElementById('current-city-date').appendChild(img);
+    } 
 
-    CurrentDate.innerHTML = cityname + "(" + date + ")";
-
+    // weather conditions display 
     var currentTemp = document.getElementById("current-temp");
+    // use values from the returned Open Weather fetch
     currentTemp.innerHTML = 
     "Temp: " + weather.current.temp + " °F" + linebreak +
     "Wind: " + weather.current.wind_speed + "mph" + linebreak +
     "Humidity: " + weather.current.humidity + "%" + linebreak +
     "UV Index: ";
     
-    // function to create style the span
-   function uvIndex() {
-        // set variable for uvi
+    // function to create a span holding the UV index and colors
+    function uvIndex() {
         var uvi = weather.current.uvi
-        // var currentTemp = document.getElementById("current-temp");
         var newSpan = document.createElement('span');
         // if uvi is "2" or less - green
         if (uvi <= 2 ) {
@@ -125,132 +134,127 @@ var displayCityWeather = function(weather){
         }
         // display uvi value
         newSpan.innerHTML = uvi
-        // append to h2 element
+        // append to p element
         document.getElementById('current-temp').appendChild(newSpan);
     } 
 
-    // THIS DOES NOTHING!!! WHY DOES IT DO NOTHING!!! 
-    //currentTemp.appendChild(linebreak);
+// Updates 5 Day Forecast
+    // Day 1 
+        // date display
+        var dayOne = document.getElementById("day-one-date");
+        var unixDayOne = weather.daily[1].dt;
+        var humanFormat1 = new Date(unixDayOne*1000);
+        var date1 = humanFormat1.toLocaleDateString();
+        dayOne.innerHTML = "(" + date1 + ")";
 
-    // Updates 5 day forecase to display Future Weather Date and data
+        // icon display
+        function iconImage1() {
+            var img = new Image();
+            var iconSource = weather.daily[1].weather[0].icon;
+            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            document.getElementById('day-one-date').appendChild(img);
+        } 
 
-    // Displays Day 1
-    var dayOne = document.getElementById("day-one-date");
-    var unixDayOne = weather.daily[1].dt;
-    var humanFormat1 = new Date(unixDayOne*1000);
-    var date1 = humanFormat1.toLocaleDateString();
-    dayOne.innerHTML = "(" + date1 + ")";
+        // weather conditions display 
+        var futureDayOne = document.getElementById("dayOne")
+        futureDayOne.innerHTML = 
+        "Temp: " + weather.daily[1].temp.day + " °F" + linebreak +
+        "Wind: " + weather.daily[1].wind_speed + "mph" + linebreak +
+        "Humidity: " + weather.daily[1].humidity + "%";
 
-    // function to grab the image from Open Weather's Api to display
-    function iconImage1() {
-        // uses image constructor
-        var img = new Image();
-        var iconSource = weather.daily[1].weather[0].icon;
-        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
-        // append to h2 element
-        document.getElementById('day-one-date').appendChild(img);
-    } 
+    // Day 2
+        // date display
+        var dayTwo = document.getElementById("day-two-date");
+        var unixDayTwo = weather.daily[2].dt;
+        var humanFormat2 = new Date(unixDayTwo*1000);
+        var date2 = humanFormat2.toLocaleDateString();
+        dayTwo.innerHTML = "(" + date2 + ")";
 
-    var futureDayOne = document.getElementById("dayOne")
-    futureDayOne.innerHTML = 
-    "Temp: " + weather.daily[1].temp.day + " °F" + linebreak +
-    "Wind: " + weather.daily[1].wind_speed + "mph" + linebreak +
-    "Humidity: " + weather.daily[1].humidity + "%";
-    // add the icon todays!
+        // icon display
+        function iconImage2() {
+            var img = new Image();
+            var iconSource = weather.daily[2].weather[0].icon;
+            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            document.getElementById('day-two-date').appendChild(img);
+        } 
 
-    // Displays Day 2
-    var dayTwo = document.getElementById("day-two-date");
-    var unixDayTwo = weather.daily[2].dt;
-    var humanFormat2 = new Date(unixDayTwo*1000);
-    var date2 = humanFormat2.toLocaleDateString();
-    dayTwo.innerHTML = "(" + date2 + ")";
+        // weather conditions display 
+        var futureDayTwo = document.getElementById("dayTwo")
+        futureDayTwo.innerHTML = 
+        "Temp: " + weather.daily[2].temp.day + " °F" + linebreak +
+        "Wind: " + weather.daily[2].wind_speed + "mph" + linebreak +
+        "Humidity: " + weather.daily[2].humidity + "%";
 
-    // function to grab the image from Open Weather's Api to display
-    function iconImage2() {
-        // uses image constructor
-        var img = new Image();
-        var iconSource = weather.daily[2].weather[0].icon;
-        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
-        // append to h2 element
-        document.getElementById('day-two-date').appendChild(img);
-    } 
+    // Day 3
+        // date display
+        var dayThree = document.getElementById("day-three-date");
+        var unixDayThree = weather.daily[3].dt;
+        var humanFormat3 = new Date(unixDayThree*1000);
+        var date3 = humanFormat3.toLocaleDateString();
+        dayThree.innerHTML = date3;
 
-    var futureDayTwo = document.getElementById("dayTwo")
-    futureDayTwo.innerHTML = 
-    "Temp: " + weather.daily[2].temp.day + " °F" + linebreak +
-    "Wind: " + weather.daily[2].wind_speed + "mph" + linebreak +
-    "Humidity: " + weather.daily[2].humidity + "%";
+        // icon display
+        function iconImage3() {
+            var img = new Image();
+            var iconSource = weather.daily[3].weather[0].icon;
+            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            document.getElementById('day-three-date').appendChild(img);
+        } 
 
-    // Displays Day 3
-    var dayThree = document.getElementById("day-three-date");
-    var unixDayThree = weather.daily[3].dt;
-    var humanFormat3 = new Date(unixDayThree*1000);
-    var date3 = humanFormat3.toLocaleDateString();
-    dayThree.innerHTML = date3;
+        // weather conditions display 
+        var futureDayThree = document.getElementById("dayThree")
+        futureDayThree.innerHTML = 
+        "Temp: " + weather.daily[3].temp.day + " °F" + linebreak +
+        "Wind: " + weather.daily[3].wind_speed + "mph" + linebreak +
+        "Humidity: " + weather.daily[3].humidity + "%";
 
-    // function to grab the image from Open Weather's Api to display
-    function iconImage3() {
-        // uses image constructor
-        var img = new Image();
-        var iconSource = weather.daily[3].weather[0].icon;
-        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
-        // append to h2 element
-        document.getElementById('day-three-date').appendChild(img);
-    } 
+    // Day 4
+        // date display
+        var dayFour = document.getElementById("day-four-date");
+        var unixDayFour = weather.daily[4].dt;
+        var humanFormat4 = new Date(unixDayFour*1000);
+        var date4 = humanFormat4.toLocaleDateString();
+        dayFour.innerHTML = date4;
 
-    var futureDayThree = document.getElementById("dayThree")
-    futureDayThree.innerHTML = 
-    "Temp: " + weather.daily[3].temp.day + " °F" + linebreak +
-    "Wind: " + weather.daily[3].wind_speed + "mph" + linebreak +
-    "Humidity: " + weather.daily[3].humidity + "%";
+        // icon display
+        function iconImage4() {
+            var img = new Image();
+            var iconSource = weather.daily[4].weather[0].icon;
+            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            document.getElementById('day-four-date').appendChild(img);
+        } 
 
-    // Displays Day 4
-    var dayFour = document.getElementById("day-four-date");
-    var unixDayFour = weather.daily[4].dt;
-    var humanFormat4 = new Date(unixDayFour*1000);
-    var date4 = humanFormat4.toLocaleDateString();
-    dayFour.innerHTML = date4;
+        // weather conditions display
+        var futureDayFour = document.getElementById("dayFour")
+        futureDayFour.innerHTML = 
+        "Temp: " + weather.daily[4].temp.day + " °F" + linebreak +
+        "Wind: " + weather.daily[4].wind_speed + "mph" + linebreak +
+        "Humidity: " + weather.daily[4].humidity + "%";
 
-     // function to grab the image from Open Weather's Api to display
-     function iconImage4() {
-        // uses image constructor
-        var img = new Image();
-        var iconSource = weather.daily[4].weather[0].icon;
-        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
-        // append to h2 element
-        document.getElementById('day-four-date').appendChild(img);
-    } 
+    // Day 5
+        // date display
+        var dayFive = document.getElementById("day-five-date");
+        var unixDayFive = weather.daily[5].dt;
+        var humanFormat5 = new Date(unixDayFive*1000);
+        var date5 = humanFormat5.toLocaleDateString();
+        dayFive.innerHTML = date5;
 
-    var futureDayFour = document.getElementById("dayFour")
-    futureDayFour.innerHTML = 
-    "Temp: " + weather.daily[4].temp.day + " °F" + linebreak +
-    "Wind: " + weather.daily[4].wind_speed + "mph" + linebreak +
-    "Humidity: " + weather.daily[4].humidity + "%";
+        // icon display
+        function iconImage5() {
+            var img = new Image();
+            var iconSource = weather.daily[5].weather[0].icon;
+            img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
+            document.getElementById('day-five-date').appendChild(img);
+        } 
 
-    // Displays Day 5
-    var dayFive = document.getElementById("day-five-date");
-    var unixDayFive = weather.daily[5].dt;
-    var humanFormat5 = new Date(unixDayFive*1000);
-    var date5 = humanFormat5.toLocaleDateString();
-    dayFive.innerHTML = date5;
+        // weather conditions display
+        var futureDayFive = document.getElementById("dayFive")
+        futureDayFive.innerHTML = 
+        "Temp: " + weather.daily[5].temp.day + " °F" + linebreak +
+        "Wind: " + weather.daily[5].wind_speed + "mph" + linebreak +
+        "Humidity: " + weather.daily[5].humidity + "%";
 
-    // function to grab the image from Open Weather's Api to display
-    function iconImage5() {
-        // uses image constructor
-        var img = new Image();
-        var iconSource = weather.daily[5].weather[0].icon;
-        img.src = 'http://openweathermap.org/img/wn/' + iconSource + '@2x.png';
-        // append to h2 element
-        document.getElementById('day-five-date').appendChild(img);
-    } 
-
-    var futureDayFive = document.getElementById("dayFive")
-    futureDayFive.innerHTML = 
-    "Temp: " + weather.daily[5].temp.day + " °F" + linebreak +
-    "Wind: " + weather.daily[5].wind_speed + "mph" + linebreak +
-    "Humidity: " + weather.daily[5].humidity + "%";
-
-
+    // call for icon images and current UV index
     iconImage();
     iconImage1();
     iconImage2();
@@ -258,12 +262,10 @@ var displayCityWeather = function(weather){
     iconImage4();
     iconImage5();
     uvIndex(currentTemp);
-};}
+};
 
-citySearchEl.addEventListener("submit", citySearchHandler);
-   
-// the goal of making the HTML first was to display the user's current location weather first...how do I do this?
-// TO DO: 
-     
+// event listener for Search button
+citySearchEl.addEventListener("submit", inputValidator);
+
 
   

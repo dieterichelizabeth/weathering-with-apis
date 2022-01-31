@@ -36,7 +36,6 @@ DONE Step 4: Create function displayRepos to display both the repos list and sea
             - filter the information that you would like to recieve/display through variables
               targeting values in the JSON
             - insert the data with .innerhtml
-    - clear old data before displaying new data to HTML ?
             - use conditional statements to create UV index with colors for 
               favorable, moderate, or severe (red, green, yellow?)
             - create an image to append to HTML for the icon(s)
@@ -44,10 +43,16 @@ DONE Step 4: Create function displayRepos to display both the repos list and sea
 Step 5. Create an area for storing previously searched cities (under the searchbar)
         - dynamically create more HTML and inject the list of city data to the search history column.
             - when a city (in history) is clicked, it's current weather data/forcast is re-searched/returned from the weather API
-Step 6: VERY IMPORTANT- CREATE ENV FILE AND NEW API KEY! DELETE OLD KEY FOR SECURITY PURPOSES 
-BUG: OBJECT HTML BR ELEMENT INSTEAD OF BREAK IN LINE
-ISSUE: CODE NEEDS REFACTORING ASAP!!!
+Step 6: Create an array to save cities to local storage
+        - seperate the geolocation fetch and weather fetch to two seperate functions
+        -
+Future step: Create an env file and new api key
+Future step: code needs refactoring at some point
+Future step: the goal of making the HTML first was to display the user's current location weather first...
 BUG: HOW TO PREVENT USERS FROM ADDING DUPLICATE BUTTON TO THE SEARCH HISTORY       
+// possible update- have local storage store the city name, lat and longitude- 
+// so that when a button is clicked, it can run straight through the weather data fetch instead of going
+// through the geolocation one
 */
 
 /*
