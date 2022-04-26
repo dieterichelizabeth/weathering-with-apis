@@ -1,4 +1,4 @@
-# 06 Weathering-With-API's
+# 06 Weathering-With-API's ☔️
 
 Challenge 6 Server-Side API: Weather Dashboard
 
