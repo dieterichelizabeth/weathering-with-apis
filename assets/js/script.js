@@ -1,3 +1,5 @@
+var apiKey = "c43c0f849cafd21471838779c2621b94";
+
 // City search form storage
 var citySearchEl = document.querySelector("#city-form");
 var cityNameEl = document.querySelector("#city-name");
@@ -30,8 +32,6 @@ var citySearchHandler = function () {
     "&appid=" +
     apiKey;
   fetch(apiUrl).then(function (response) {
-    console.log(response);
-
     // Condition: if Open weather API returns a valid response- use lat/lon in openWeatherRequest function
     if (response.ok) {
       response.json().then(function (location) {
@@ -131,9 +131,10 @@ var openWeatherRequest = function (latitude, longitude, cityname) {
 
 // Function to dipsplay weather data
 var displayWeather = function (weather, cityname) {
+  console.log(weather);
   linebreak = "<br>";
 
-  // Get the date
+  // Format the date
   var unixUTCCurrent = weather.current.dt;
   var currentDate = new Date(unixUTCCurrent * 1000);
   var date = currentDate.toLocaleDateString();
@@ -175,6 +176,24 @@ var displayWeather = function (weather, cityname) {
 
   uvIndex();
 
+  for (let i = 0; i < 5; i++) {
+    // Format the date
+    var unixUTCdaily = weather.daily[i].dt;
+    var dailyDate = new Date(unixUTCdaily * 1000);
+    var dayDate = dailyDate.toLocaleDateString();
+
+    // Update each "day" card
+    document.getElementById("cityDate" + i).innerHTML = dayDate;
+    document.getElementById("cityTemp" + i).innerHTML =
+      weather.daily[i].temp.day + " °";
+    document.getElementById("cityWeather" + i).innerHTML =
+      weather.daily[i].wind_speed +
+      "mph" +
+      linebreak +
+      +weather.daily[i].humidity +
+      "%";
+  }
+
   // // function to grab the image from Open Weather's Api to display
   // function iconImage() {
   //   // uses image constructor
@@ -186,14 +205,6 @@ var displayWeather = function (weather, cityname) {
   // }
 
   // Updates 5 Day Forecast widgets
-  // for (let i = 0; i < 5; i++) {
-  //   // date display
-  //   var dayOne = document.getElementById("day-one-date");
-  //   var unixDayOne = weather.daily[i].dt;
-  //   var humanFormat1 = new Date(unixDayOne * 1000);
-  //   var date1 = humanFormat1.toLocaleDateString();
-  //   dayOne.innerHTML = "(" + date1 + ")";
-
   //   // icon display
   //   function iconImage1() {
   //     var img = new Image();
@@ -202,27 +213,8 @@ var displayWeather = function (weather, cityname) {
   //     document.getElementById("day-one-date").appendChild(img);
   //   }
 
-  //   // weather conditions display
-  //   var futureDayOne = document.getElementById("dayOne");
-  //   futureDayOne.innerHTML =
-  //     "Temp: " +
-  //     weather.daily[i].temp.day +
-  //     " °F" +
-  //     linebreak +
-  //     "Wind: " +
-  //     weather.daily[i].wind_speed +
-  //     "mph" +
-  //     linebreak +
-  //     "Humidity: " +
-  //     weather.daily[i].humidity +
-  //     "%";
-  // }
-
   // call for icon images and current UV index
   // iconImage();
-  // // iconImage1();
-
-  // uvIndex(currentTemp);
 };
 
 // event listener for Search button
