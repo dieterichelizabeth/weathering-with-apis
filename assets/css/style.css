@@ -42,8 +42,21 @@
 }
 
 .searchButton:hover {
-  color: #4285f4ff;
+  color: var(--primary);
   background-color: #c9daf8ff;
+}
+
+.previousSearch {
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  background-color: #c9daf8ff;
+  margin: 10px 0px 15px;
+}
+
+.previousSearch:hover {
+  color: white;
+  background-color: var(--primary);
 }
 
 /* Styles to Weather Container */

@@ -23,7 +23,7 @@
     </header>
 
     <div class="d-flex flex-wrap">
-      <!-- Section for search city -->
+      <!-- City Search -->
       <div class="col-3">
         <p class="searchTitle">Search For a City:</p>
         <div class="border-bottom border-2 border-dark mb-4">
@@ -42,10 +42,12 @@
         </div>
         <div id="city-storage"></div>
       </div>
+
+      <!-- Weather Display -->
       <div
         class="col-9 d-flex flex-wrap justify-content-center weatherContainer"
       >
-        <!-- Section for sample city placeholder-->
+        <!-- Current Day -->
         <div class="col-6 todayCard">
           <h1 id="cityName" class="cityTitle"></h1>
           <p id="cityDate" class="text-center currentDate"></p>
@@ -57,74 +59,55 @@
             </div>
           </div>
         </div>
+
         <!-- Section for 5 day forecast-->
         <div class="col-12">
           <p class="text-left ml-4 col-10 forecastTitle">5-Day Forecast</p>
           <div class="d-flex flex-wrap justify-content-around">
             <!-- Day 1 -->
             <div class="col-lg-2 text-center forecastCard">
-              <p id="cityDate0" class="forecastDate">01/22</p>
+              <p id="cityDate0" class="forecastDate"></p>
               <div id="cityIcon0"></div>
-              <p id="cityTemp0" class="forecastTemp">46.78*</p>
-              <p id="cityWeather0">
-                4mph <br />
-                78%
-              </p>
+              <p id="cityTemp0" class="forecastTemp"></p>
+              <p id="cityWeather0"></p>
             </div>
 
             <!-- Day 2 -->
             <div class="col-lg-2 text-center forecastCard">
-              <p id="cityDate1" class="forecastDate">11/22</p>
+              <p id="cityDate1" class="forecastDate"></p>
               <div id="cityIcon1"></div>
-              <p id="cityTemp1" class="forecastTemp">46.78*</p>
-              <p id="cityWeather1">
-                4mph <br />
-                78%
-              </p>
+              <p id="cityTemp1" class="forecastTemp"></p>
+              <p id="cityWeather1"></p>
             </div>
 
             <!-- Day 3 -->
             <div class="col-lg-2 text-center forecastCard">
-              <p id="cityDate2" class="forecastDate">21/22</p>
+              <p id="cityDate2" class="forecastDate"></p>
               <div id="cityIcon2"></div>
-              <p id="cityTemp2" class="forecastTemp">46.78*</p>
-              <p id="cityWeather2">
-                4mph <br />
-                78%
-              </p>
+              <p id="cityTemp2" class="forecastTemp"></p>
+              <p id="cityWeather2"></p>
             </div>
 
             <!-- Day 4 -->
             <div class="col-lg-2 text-center forecastCard">
-              <p id="cityDate3" class="forecastDate">31/22</p>
+              <p id="cityDate3" class="forecastDate"></p>
               <div id="cityIcon3"></div>
-              <p id="cityTemp3" class="forecastTemp">46.78*</p>
-              <p id="cityWeather3">
-                4mph <br />
-                78%
-              </p>
+              <p id="cityTemp3" class="forecastTemp"></p>
+              <p id="cityWeather3"></p>
             </div>
 
             <!-- Day 5 -->
             <div class="col-lg-2 text-center forecastCard">
-              <p id="cityDate4" class="forecastDate">41/22</p>
+              <p id="cityDate4" class="forecastDate"></p>
               <div id="cityIcon4"></div>
-              <p id="cityTemp4" class="forecastTemp">46.78*</p>
-              <p id="cityWeather4">
-                4mph <br />
-                78%
-              </p>
+              <p id="cityTemp4" class="forecastTemp"></p>
+              <p id="cityWeather4"></p>
             </div>
           </div>
         </div>
-        <p class="credits">
-          Built with Love, Open Weather API, and
-          <span
-            ><a href="https://www.flaticon.com/free-icons/cloud"
-              >Flaticon</a
-            ></span
-          >
-        </p>
+
+        <!-- Credits -->
+        <p class="credits">Made with ❤️, Bootstrap, and Google Fonts</p>
       </div>
     </div>
 
