@@ -22,9 +22,9 @@
       <p class="headerTitle">Weather Dashboard</p>
     </header>
 
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap justify-content-center">
       <!-- City Search -->
-      <div class="col-3">
+      <div class="col-lg-3 col-md-9">
         <p class="searchTitle">Search For a City:</p>
         <div class="border-bottom border-2 border-dark mb-4">
           <form id="city-form">
@@ -45,15 +45,15 @@
 
       <!-- Weather Display -->
       <div
-        class="col-9 d-flex flex-wrap justify-content-center weatherContainer"
+        class="col-lg-9 col-md-12 d-flex flex-wrap justify-content-center weatherContainer"
       >
         <!-- Current Day -->
-        <div class="col-6 todayCard">
+        <div class="col-lg-6 col-sm-9 todayCard">
           <h1 id="cityName" class="cityTitle"></h1>
           <p id="cityDate" class="text-center currentDate"></p>
           <div class="d-flex flex-wrap justify-content-center">
             <div id="cityIcon"></div>
-            <div class="col-3">
+            <div class="col-5">
               <p id="cityTemp" class="currentTemprature"></p>
               <p id="cityWeather" class="currentWind"></p>
             </div>
@@ -62,10 +62,12 @@
 
         <!-- Section for 5 day forecast-->
         <div class="col-12">
-          <p class="text-left ml-4 col-10 forecastTitle">5-Day Forecast</p>
+          <p class="text-left ml-4 col-lg-10 col-sm-11 forecastTitle">
+            5-Day Forecast
+          </p>
           <div class="d-flex flex-wrap justify-content-around">
             <!-- Day 1 -->
-            <div class="col-lg-2 text-center forecastCard">
+            <div class="col-lg-2 col-sm-7 text-center forecastCard">
               <p id="cityDate0" class="forecastDate"></p>
               <div id="cityIcon0"></div>
               <p id="cityTemp0" class="forecastTemp"></p>
@@ -73,7 +75,7 @@
             </div>
 
             <!-- Day 2 -->
-            <div class="col-lg-2 text-center forecastCard">
+            <div class="col-lg-2 col-sm-7 text-center forecastCard">
               <p id="cityDate1" class="forecastDate"></p>
               <div id="cityIcon1"></div>
               <p id="cityTemp1" class="forecastTemp"></p>
@@ -81,7 +83,7 @@
             </div>
 
             <!-- Day 3 -->
-            <div class="col-lg-2 text-center forecastCard">
+            <div class="col-lg-2 col-sm-7 text-center forecastCard">
               <p id="cityDate2" class="forecastDate"></p>
               <div id="cityIcon2"></div>
               <p id="cityTemp2" class="forecastTemp"></p>
@@ -89,7 +91,7 @@
             </div>
 
             <!-- Day 4 -->
-            <div class="col-lg-2 text-center forecastCard">
+            <div class="col-lg-2 col-sm-7 text-center forecastCard">
               <p id="cityDate3" class="forecastDate"></p>
               <div id="cityIcon3"></div>
               <p id="cityTemp3" class="forecastTemp"></p>
@@ -97,7 +99,7 @@
             </div>
 
             <!-- Day 5 -->
-            <div class="col-lg-2 text-center forecastCard">
+            <div class="col-lg-2 col-sm-7 text-center forecastCard">
               <p id="cityDate4" class="forecastDate"></p>
               <div id="cityIcon4"></div>
               <p id="cityTemp4" class="forecastTemp"></p>
