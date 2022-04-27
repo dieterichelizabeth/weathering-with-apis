@@ -1,0 +1,134 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+:root {
+  --primary: #4285f4ff;
+}
+
+.contentDisplay {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+/* Stles to Banner */
+.headerTitle {
+  width: 100vw;
+  background-color: var(--primary);
+  padding: 10px 0px 10px;
+  margin-block-end: 0px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 25px;
+  color: white;
+}
+
+/* Styles to Search Section */
+.searchTitle {
+  padding-left: 10px;
+  margin-top: 50px;
+  margin-block-end: 0px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.cityForm {
+  width: 100%;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.searchButton {
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--primary);
+  margin: 10px 0px 15px;
+}
+
+.searchButton:hover {
+  color: var(--primary);
+  background-color: #c9daf8ff;
+}
+
+.previousSearch {
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  background-color: #c9daf8ff;
+  margin: 10px 0px 15px;
+}
+
+.previousSearch:hover {
+  color: white;
+  background-color: var(--primary);
+}
+
+/* Styles to Weather Container */
+.weatherContainer {
+  background-color: #ebebf1c6;
+}
+
+/* styles to current day card */
+.todayCard {
+  background-color: white;
+  border-radius: 20px;
+  margin: 30px 0px 30px;
+}
+
+.cityTitle {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.currentIcon {
+  height: 100px;
+}
+
+.currentTemprature {
+  font-size: 25px;
+}
+
+.currentDate {
+  font-size: 10px;
+}
+
+.currentWind {
+  font-size: 12px;
+}
+
+/* styles to 5 day forcast and cards */
+.forecastTitle {
+  font-size: 17px;
+  margin-left: 20px;
+}
+
+.forecastCard {
+  background-color: white;
+  border-radius: 20px;
+  margin: 5px 0px 5px;
+}
+
+.forecastDate {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 17px;
+}
+
+.forcastIcon {
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.forecastTemp {
+  font-size: 23px;
+  margin-bottom: 0px;
+}
+
+/* Styles to Credits */
+.credits {
+  padding-top: 70px;
+  text-align: center;
+  margin-top: 10px;
+}
