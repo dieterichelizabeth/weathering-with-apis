@@ -198,3 +198,11 @@ var displayWeather = function (weather, cityname) {
 // Event Listeners
 citySearchEl.addEventListener("submit", inputValidator);
 searchButtonEl.addEventListener("click", reSearch);
+
+welcome = function () {
+  firstSearch = "Austin";
+  citySearchHandler(firstSearch);
+};
+
+// On load, display Austin, TX weather
+welcome();
