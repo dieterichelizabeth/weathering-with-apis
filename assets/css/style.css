@@ -1,0 +1,46 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+:root {
+  --primary: #4285f4ff;
+}
+
+/* Stles to Banner */
+h1 {
+  width: 100vw;
+  background-color: var(--primary);
+  padding: 10px 0px 10px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 30px;
+  color: white;
+}
+
+/* Styles to Search Section */
+.searchTitle {
+  padding-left: 10px;
+  margin-top: 50px;
+  margin-block-end: 0px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.cityForm {
+  width: 100%;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.searchButton {
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--primary);
+  margin: 10px 0px 15px;
+}
+
+.searchButton:hover {
+  color: #4285f4ff;
+  background-color: #c9daf8ff;
+}
