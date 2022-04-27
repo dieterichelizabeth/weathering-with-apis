@@ -131,7 +131,6 @@ var openWeatherRequest = function (latitude, longitude, cityname) {
 
 // Function to dipsplay weather data
 var displayWeather = function (weather, cityname) {
-  console.log(weather);
   linebreak = "<br>";
 
   // Format the date
@@ -155,32 +154,44 @@ var displayWeather = function (weather, cityname) {
     "UV Index: ";
 
   // function to create a span holding the UV index and colors
-  function uvIndex() {
-    var uvi = weather.current.uvi;
-    var newSpan = document.createElement("span");
-    // if uvi is "2" or less - green
-    if (uvi <= 2) {
-      newSpan.setAttribute("class", "bg-success text-center");
-      // if uvi is between "3" to "5" - yellow
-    } else if (uvi >= 3 && uvi <= 5) {
-      newSpan.setAttribute("class", "bg-warning text-center");
-      // if uvi is above "5" - red
-    } else {
-      newSpan.setAttribute("class", "bg-danger text-center");
-    }
-    // display uvi value
-    newSpan.innerHTML = uvi;
-    // append to p element
-    document.getElementById("cityWeather").appendChild(newSpan);
+  var uvi = weather.current.uvi;
+  var newSpan = document.createElement("span");
+  // if uvi is "2" or less - green
+  if (uvi <= 2) {
+    newSpan.setAttribute("class", "bg-success text-center");
+    // if uvi is between "3" to "5" - yellow
+  } else if (uvi >= 3 && uvi <= 5) {
+    newSpan.setAttribute("class", "bg-warning text-center");
+    // if uvi is above "5" - red
+  } else {
+    newSpan.setAttribute("class", "bg-danger text-center");
   }
+  // display uvi value
+  newSpan.innerHTML = uvi;
+  // append to p element
+  document.getElementById("cityWeather").appendChild(newSpan);
 
-  uvIndex();
+  // function to grab the image from Open Weather's Api to display
+  // uses image constructor
+  var img = new Image();
+  var iconSource = weather.current.weather[0].icon;
+  img.src = "http://openweathermap.org/img/wn/" + iconSource + "@2x.png";
+  img.className = "currentIcon";
+  // append to h2 element
+  document.getElementById("cityIcon").innerHTML = "";
+  document.getElementById("cityIcon").appendChild(img);
 
+  // Updates 5 Day Forecast widgets
   for (let i = 0; i < 5; i++) {
     // Format the date
     var unixUTCdaily = weather.daily[i].dt;
     var dailyDate = new Date(unixUTCdaily * 1000);
     var dayDate = dailyDate.toLocaleDateString();
+
+    // Get the Icon from Open Weather
+    var img = new Image();
+    var iconSource = weather.daily[i].weather[0].icon;
+    img.src = "http://openweathermap.org/img/wn/" + iconSource + "@2x.png";
 
     // Update each "day" card
     document.getElementById("cityDate" + i).innerHTML = dayDate;
@@ -192,29 +203,9 @@ var displayWeather = function (weather, cityname) {
       linebreak +
       +weather.daily[i].humidity +
       "%";
+    document.getElementById("cityIcon" + i).innerHTML = "";
+    document.getElementById("cityIcon" + i).appendChild(img);
   }
-
-  // // function to grab the image from Open Weather's Api to display
-  // function iconImage() {
-  //   // uses image constructor
-  //   var img = new Image();
-  //   var iconSource = weather.current.weather[0].icon;
-  //   img.src = "http://openweathermap.org/img/wn/" + iconSource + "@2x.png";
-  //   // append to h2 element
-  //   document.getElementById("current-city-date").appendChild(img);
-  // }
-
-  // Updates 5 Day Forecast widgets
-  //   // icon display
-  //   function iconImage1() {
-  //     var img = new Image();
-  //     var iconSource = weather.daily[i].weather[0].icon;
-  //     img.src = "http://openweathermap.org/img/wn/" + iconSource + "@2x.png";
-  //     document.getElementById("day-one-date").appendChild(img);
-  //   }
-
-  // call for icon images and current UV index
-  // iconImage();
 };
 
 // event listener for Search button
