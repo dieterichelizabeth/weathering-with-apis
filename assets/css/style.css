@@ -83,6 +83,7 @@
 /* styles to 5 day forcast and cards */
 .forecastTitle {
   font-size: 17px;
+  margin-left: 20px;
 }
 
 .forecastCard {
