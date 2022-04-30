@@ -51,34 +51,24 @@ var citySearchHandler = async function (cityname) {
 };
 
 // REQUEST WEATHER DATA FROM OPEN WEATHER API
-var openWeatherRequest = function (latitude, longitude, cityname) {
-  console.log(latitude, longitude, cityname);
-
-  var apiUrl =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-    latitude +
-    "&lon=" +
-    longitude +
-    "&appid=" +
-    apiKey +
-    "&units=imperial";
-
-  console.log(apiUrl);
-
-  // Request for weather data using lat/long variables
-  // fetch(apiUrl)
-  //   .then(function (response) {
-  //     // JSON formats the response under data
-  //     response.json().then(function (data) {
-  //       // If okay, display the weather
-  //       displayWeather(data, cityname);
-  //     });
-  //   })
-  //   // Else, inform the user- unable to connect to the API
-  //   .catch(function (error) {
-  //     console.log(error);
-  //     alert("Unable to connect to Open Source Weather");
-  //   });
+var openWeatherRequest = async function (latitude, longitude, cityname) {
+  // Request to the server for Open Weather API Weather data
+  const response = await fetch("/weather", {
+    method: "post",
+    body: JSON.stringify({
+      latitude,
+      longitude,
+    }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data);
+      displayWeather(data, cityname);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 // ADD SEARCH HISTORY BUTTONS
@@ -209,4 +199,4 @@ welcome = function () {
 };
 
 // On load, display Austin, TX weather
-// welcome();
+welcome();

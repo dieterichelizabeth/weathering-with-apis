@@ -16,10 +16,22 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Request to the API
+// Fetch the City Coodinates from Open Weather API
 app.post("/city", async (req, res, next) => {
   const city = req.body.cityname;
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.apiKey}`;
+  // console.log(url);
+  const response = await fetch(url)
+    .then((response) => response.json())
+    .then((data) => res.json(data))
+    .catch((err) => console.log(err));
+});
+
+// Fetch the City Weather from Open Weather API
+app.post("/weather", async (req, res, next) => {
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${process.env.apiKey}&units=imperial`;
   // console.log(url);
   const response = await fetch(url)
     .then((response) => response.json())
