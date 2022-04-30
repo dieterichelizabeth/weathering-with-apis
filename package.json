@@ -1,0 +1,24 @@
+{
+  "name": "weathering-with-apis",
+  "version": "1.0.0",
+  "description": "Weather Dashboard ☔️",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dieterichelizabeth/weathering-with-apis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dieterichelizabeth/weathering-with-apis/issues"
+  },
+  "homepage": "https://github.com/dieterichelizabeth/weathering-with-apis#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "node-fetch": "2.0"
+  }
+}

@@ -22,36 +22,38 @@ var inputValidator = function (event) {
 };
 
 // CITY VALIDATOR
-var citySearchHandler = function (cityname) {
-  var apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    cityname +
-    "&appid=" +
-    apiKey;
-
-  // Request to the Open Weather API for Geolocation
-  fetch(apiUrl).then(function (response) {
-    // If ok, lat/lon are valid
-    if (response.ok) {
-      response.json().then(function (location) {
+var citySearchHandler = async function (cityname) {
+  // Request to the server for Open Weather API Geolocation
+  const response = await fetch("/city", {
+    method: "post",
+    body: JSON.stringify({
+      cityname,
+    }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      geolocation = data.coord;
+      if (geolocation === undefined) {
+        alert("City not found!");
+      } else {
         // Store lat/long variables
-        var latitude = location.coord.lat;
-        var longitude = location.coord.lon;
-
+        var latitude = data.coord.lat;
+        var longitude = data.coord.lon;
         // Request weather data, Save form input to a button
         openWeatherRequest(latitude, longitude, cityname);
         cityStorage(latitude, longitude, cityname);
-      });
-    }
-    // Else, Alert (invalid city)
-    else {
-      alert("City not found");
-    }
-  });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 // REQUEST WEATHER DATA FROM OPEN WEATHER API
 var openWeatherRequest = function (latitude, longitude, cityname) {
+  console.log(latitude, longitude, cityname);
+
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
     latitude +
@@ -61,20 +63,22 @@ var openWeatherRequest = function (latitude, longitude, cityname) {
     apiKey +
     "&units=imperial";
 
+  console.log(apiUrl);
+
   // Request for weather data using lat/long variables
-  fetch(apiUrl)
-    .then(function (response) {
-      // JSON formats the response under data
-      response.json().then(function (data) {
-        // If okay, display the weather
-        displayWeather(data, cityname);
-      });
-    })
-    // Else, inform the user- unable to connect to the API
-    .catch(function (error) {
-      console.log(error);
-      alert("Unable to connect to Open Source Weather");
-    });
+  // fetch(apiUrl)
+  //   .then(function (response) {
+  //     // JSON formats the response under data
+  //     response.json().then(function (data) {
+  //       // If okay, display the weather
+  //       displayWeather(data, cityname);
+  //     });
+  //   })
+  //   // Else, inform the user- unable to connect to the API
+  //   .catch(function (error) {
+  //     console.log(error);
+  //     alert("Unable to connect to Open Source Weather");
+  //   });
 };
 
 // ADD SEARCH HISTORY BUTTONS
@@ -205,4 +209,4 @@ welcome = function () {
 };
 
 // On load, display Austin, TX weather
-welcome();
+// welcome();
