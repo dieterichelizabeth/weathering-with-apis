@@ -1,14 +1,49 @@
-# 06 Weathering-With-API's
+# Weathering-With-API's ☔️
 
-Weather Dashboard ☔️
+Weathering With APi's is a weather dashboard where users can search for weather data based on city name. A user can search for a city such as "San Francisco" and the app will display the current weather, as well as a 5 day forecast. Previous searches are saved under the search bar, and can be used to re-display weather for that city.
 
-Weathering With APi's is a weather dashboard where users can search for weather data based on city name. A user can search for a city such as "San Francisco" and the app will display the current weather, as well as a 5 day forecast. Previous searches are saved under the search bar, and can be used to re-display weather for that city. This project uses the [Open Weather Map](https://openweathermap.org/) and features dynamically updated HTML and CSS with Javascript for weather display.
+Weathering With API's uses the [Open Weather Map API](https://openweathermap.org/) and features dynamically updated HTML and CSS through Javascript. This project uses Node.js and Express.js to create a server for handling requests to the API.
 
-[Click to view the deployed application](https://dieterichelizabeth.github.io/weathering-with-apis/)
+[Click to view the deployed application](https://weathering-with-apis.herokuapp.com/)
 
 ## Screenshots
 
 <img width="1369" alt="Screen Shot 2022-04-27 at 1 07 52 AM" src="https://user-images.githubusercontent.com/95142863/165452437-e580b805-b2f1-4f7e-99f0-147e7a3981e6.png">
+
+## Lessons Learned
+
+One of the learning oportunities I ran into while completing this project was protecting the API key. After completing the first version (which can be viewed on branch: "version-1.0"), I recieved notifications from pushing my key into the repo. To keep this new version as close to the original as possible (since the point of the project was to build a fully functioning Weather App using vanilla JavaScript), the updates to Weathering With API's contain the previous files in the public folder, and server to serve the public files.
+
+The first challenge I ran into was the JavaScript in script.js did not understand process.env.apiKey. As a result, I used [dotenv](https://www.npmjs.com/package/dotenv) to store a reference to the apiKey in the .env file when run locally, and created a route to the server which would handle the API requests.
+
+```
+// CITY VALIDATOR
+var citySearchHandler = async function (cityname) {
+  // Request to the server for Open Weather API Geolocation
+  const response = await fetch("/city", {
+    method: "post",
+    body: JSON.stringify({
+      cityname,
+    }),
+    headers: { "Content-Type": "application/json" },
+  })
+  ...
+```
+
+The second challenge I ran into was using the fetch request in Node.js (version 16.13.2). This project now uses [Node Fetch](https://www.npmjs.com/package/node-fetch#post-with-form-parameters) package library to complete the requests and send the data back to the "script.js" file as follows:
+
+```
+// Fetch the City Coodinates from Open Weather API
+app.post("/city", async (req, res, next) => {
+ const city = req.body.cityname;
+ const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.apiKey}`;
+ // console.log(url);
+ const response = await fetch(url)
+   .then((response) => response.json())
+   .then((data) => res.json(data))
+   .catch((err) => console.log(err));
+});
+```
 
 ## User Story
 
