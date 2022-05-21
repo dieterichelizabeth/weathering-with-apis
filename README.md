@@ -6,6 +6,8 @@ Weathering With API's uses the [Open Weather Map API](https://openweathermap.org
 
 [Click to view the deployed application](https://weathering-with-apis.herokuapp.com/)
 
+Built with: Javascript, HTML, CSS, and Node.js.
+
 ## Screenshots
 
 <img width="1369" alt="Screen Shot 2022-04-27 at 1 07 52 AM" src="https://user-images.githubusercontent.com/95142863/165452437-e580b805-b2f1-4f7e-99f0-147e7a3981e6.png">
