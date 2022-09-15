@@ -23,31 +23,17 @@ function capitalize(city) {
   return city.charAt(0).toUpperCase() + city.slice(1); // Capitalize the first letter
 }
 
+function setHTML(element, value) {
+  document.querySelector(element).innerHTML = value;
+}
+
 function setStorage() {
   localStorage.setItem("CitySearchHistory", JSON.stringify(searchObj.previous));
 }
 
-var handleSearch = function (e) {
-  e.preventDefault();
-  const city = document.querySelector("#city-name").value.trim().toLowerCase(); // get city name
-  searchEl.reset(); // clear the form
-
-  // INPUT VALIDATOR
-  if (city) {
-    // Check if the city is in previous searches!
-    if (searchObj.previous.findIndex((search) => search.name === city) === -1) {
-      fetchLatLon(city); // If new search, attempt to tech coordinates
-    } else {
-      reSearch(city);
-    }
-  } else {
-    alert("You must enter the name of a city!");
-  }
-};
-
 // ------- Go Fetch -------
 var fetchLatLon = async function (city) {
-  // Request to the server for Open Weather API Geolocation
+  // Request to the server for Geolocation
   await fetch("/city", {
     method: "post",
     body: JSON.stringify({
@@ -68,54 +54,29 @@ var fetchLatLon = async function (city) {
         addButton(city);
         searchObj.previous.push(searchObj.newCity);
         setStorage(); // Store City Info
-        openWeatherRequest(); // Request weather data, Save form input to a button
+        fetchWeather(searchObj.newCity.lat, searchObj.newCity.long);
       }
     })
     .catch((err) => console.log(err));
 };
 
-// REQUEST WEATHER DATA FROM OPEN WEATHER API
-var openWeatherRequest = async function () {
-  let latitude = searchObj.newCity.lat;
-  let longitude = searchObj.newCity.long;
-  // Request to the server for Open Weather API Weather data
+var fetchWeather = async function (lat, lon) {
+  // Request to the server for Weather Data
   const response = await fetch("/weather", {
     method: "post",
     body: JSON.stringify({
-      latitude,
-      longitude,
+      lat,
+      lon,
     }),
     headers: { "Content-Type": "application/json" },
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.log(data);
+      setHTML("#city", capitalize(searchObj.newCity.name));
       displayWeather(data, cityname);
+      console.log(data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-// PREVIOUS SEARCH BUTTON HANDLER
-var reSearch = function (event) {
-  // Get the id
-  var targetEl = event.target;
-  var i = targetEl.id;
-
-  // Grab the City data from localstorage
-  var newSearch = localStorage.getItem("search");
-  var cityData = JSON.parse(newSearch);
-  var cityInfo = cityData[i];
-
-  // Define values from cityInfo array
-  var cityname = cityInfo[0];
-  var latitude = cityInfo[1];
-  var longitude = cityInfo[2];
-  // console.log("Displaying the weather for -", cityname, latitude, longitude);
-
-  // Request the Weather Data
-  openWeatherRequest(latitude, longitude, cityname);
+    .catch((err) => console.log(err));
 };
 
 // DISPLAY WEATHER DATA
@@ -190,16 +151,47 @@ var displayWeather = function (weather, cityname) {
   }
 };
 
-// Event Listeners
+// ------- Handle Events -------
+var handleSearch = function (e) {
+  e.preventDefault();
+  const city = document.querySelector("#city-name").value.trim().toLowerCase(); // get city name
+  searchEl.reset(); // clear the form
+
+  // INPUT VALIDATOR
+  if (city) {
+    // Check if the city is in previous searches!
+    if (searchObj.previous.findIndex((search) => search.name === city) === -1) {
+      fetchLatLon(city); // If new search, attempt to tech coordinates
+    } else {
+      reSearch(city);
+    }
+  } else {
+    alert("You must enter the name of a city!");
+  }
+};
+
+// PREVIOUS SEARCH BUTTON HANDLER
+var reSearch = function (event) {
+  // Get the id
+  var targetEl = event.target;
+  var i = targetEl.id;
+
+  // Grab the City data from localstorage
+  var newSearch = localStorage.getItem("search");
+  var cityData = JSON.parse(newSearch);
+  var cityInfo = cityData[i];
+
+  // Define values from cityInfo array
+  var cityname = cityInfo[0];
+  var latitude = cityInfo[1];
+  var longitude = cityInfo[2];
+  // console.log("Displaying the weather for -", cityname, latitude, longitude);
+
+  // Request the Weather Data
+  openWeatherRequest(latitude, longitude, cityname);
+};
+
 searchEl.addEventListener("submit", handleSearch);
 previousEl.addEventListener("click", reSearch);
 
-welcome = function () {
-  firstSearch = "Austin";
-  citySearchHandler(firstSearch);
-};
-
 searchObj.retrieveSearches(); // Display Previous Searches on page load
-
-// On load, display Austin, TX weather
-welcome();
