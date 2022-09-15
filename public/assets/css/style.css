@@ -2,66 +2,78 @@
   font-family: "Roboto", sans-serif;
 }
 
+body {
+  /* Matt Palmer - Unsplashed */
+  background-image: url("../background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 :root {
-  --primary: #4285f4ff;
+  --primary: #f7f7f776;
+  --lightGrey: #666666;
+  --darkGrey: #434343;
+  padding: 0;
+  margin: 0;
 }
 
-.contentDisplay {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
-/* Stles to Banner */
-.headerTitle {
-  width: 100vw;
-  background-color: var(--primary);
-  padding: 10px 0px 10px;
-  margin-block-end: 0px;
-  text-align: center;
-  font-weight: 900;
-  font-size: 25px;
-  color: white;
+button {
+  background-color: transparent;
+  border: none;
 }
 
 /* Styles to Search Section */
-.searchTitle {
-  padding-left: 10px;
-  margin-top: 50px;
-  margin-block-end: 0px;
-  font-size: 17px;
-  font-weight: 600;
+#form-section {
+  width: 600px;
+  margin: auto;
 }
 
-.cityForm {
-  width: 100%;
-  border-radius: 10px;
-  height: 40px;
+button:hover {
+  cursor: pointer;
 }
 
-.searchButton {
-  width: 100%;
-  border-radius: 10px;
-  color: white;
+#form-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#city-form {
+  width: 375;
   background-color: var(--primary);
-  margin: 10px 0px 15px;
 }
 
-.searchButton:hover {
-  color: var(--primary);
-  background-color: #c9daf8ff;
+input[type="text"],
+select,
+#submit-button {
+  padding: 12px 0px;
+  margin: 0;
+  background-color: transparent;
 }
 
-.previousSearch {
+input[type="text"],
+select {
+  padding-left: 5px;
+  width: 348px;
+  font-size: 16px;
+  border: none;
+}
+
+#submit-button span {
+  font-size: 16px;
+  color: var(--lightGrey);
+  padding-right: 2px;
+}
+
+#clear-search,
+#previous-searches button {
+  color: var(--lightGrey);
+}
+
+#previous-searches {
+  padding-top: 10px;
   width: 100%;
-  border-radius: 10px;
-  color: white;
-  background-color: #c9daf8ff;
-  margin: 10px 0px 15px;
-}
-
-.previousSearch:hover {
-  color: white;
-  background-color: var(--primary);
 }
 
 /* Styles to Weather Container */
@@ -124,11 +136,4 @@
 .forecastTemp {
   font-size: 23px;
   margin-bottom: 0px;
-}
-
-/* Styles to Credits */
-.credits {
-  padding-top: 70px;
-  text-align: center;
-  margin-top: 10px;
 }

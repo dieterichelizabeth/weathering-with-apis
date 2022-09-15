@@ -14,35 +14,16 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
     />
+    <!-- Material Search Icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weathering With API's</title>
   </head>
   <body>
-    <header>
-      <p class="headerTitle">Weather Dashboard</p>
-    </header>
-
     <div class="d-flex flex-wrap justify-content-center contentDisplay">
-      <!-- City Search -->
-      <div class="col-lg-3 col-md-9">
-        <p class="searchTitle">Search For a City:</p>
-        <div class="border-bottom border-2 border-dark mb-4">
-          <form id="city-form">
-            <label for="city-name"></label>
-            <input
-              class="cityForm"
-              type="text"
-              name="cityname"
-              id="city-name"
-              class="form-input"
-              placeholder=" Ex: San Francisco"
-            />
-            <button type="submit" class="btn searchButton">Search</button>
-          </form>
-        </div>
-        <div id="city-storage"></div>
-      </div>
-
       <!-- Weather Display -->
       <div
         class="col-lg-9 col-md-12 d-flex flex-wrap justify-content-center weatherContainer"
@@ -107,11 +88,29 @@
             </div>
           </div>
         </div>
-
-        <!-- Credits -->
-        <p class="credits">Made with ❤️, Bootstrap, and Google Fonts</p>
       </div>
     </div>
+
+    <!-- Search Form and History -->
+    <section id="form-section">
+      <div id="form-container">
+        <form id="city-form">
+          <label for="city-name"></label>
+          <input
+            type="text"
+            name="city-name"
+            id="city-name"
+            placeholder="Seattle"
+          />
+          <button id="submit-button" type="submit">
+            <span class="material-symbols-outlined"> search </span>
+          </button>
+        </form>
+
+        <button id="clear-search">Clear Search History</button>
+      </div>
+      <div id="previous-searches"></div>
+    </section>
 
     <script src="./assets/js/script.js"></script>
   </body>
