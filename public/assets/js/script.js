@@ -2,7 +2,7 @@ const searchEl = document.querySelector("#city-form");
 const clearEl = document.querySelector("#clear-search");
 const previousEl = document.querySelector("#previous-searches");
 
-// Local Storage
+// ------- Local Storage -------
 const searchObj = {
   previous: [],
   newCity: {},
@@ -66,6 +66,13 @@ function removeDecimal(data) {
   return newData[0];
 }
 
+function reSearch(city) {
+  searchObj.newCity = searchObj.previous.filter(
+    (pCity) => pCity.name === city
+  )[0]; // Make previous search values accessible to weather fech
+  fetchWeather();
+}
+
 function setHTML(element, value) {
   document.querySelector(element).innerHTML = value;
 }
@@ -75,9 +82,9 @@ function setStorage() {
 }
 
 // ------- Go Fetch -------
-var fetchLatLon = async function (city) {
+function fetchLatLon(city) {
   // Request to the server for Geolocation
-  await fetch("/city", {
+  fetch("/city", {
     method: "post",
     body: JSON.stringify({
       city,
@@ -97,15 +104,17 @@ var fetchLatLon = async function (city) {
         addButton(city);
         searchObj.previous.push(searchObj.newCity);
         setStorage(); // Store City Info
-        fetchWeather(searchObj.newCity.lat, searchObj.newCity.long);
+        fetchWeather();
       }
     })
     .catch((err) => console.log(err));
-};
+}
 
-var fetchWeather = async function (lat, lon) {
+function fetchWeather() {
+  let lat = searchObj.newCity.lat;
+  let lon = searchObj.newCity.long;
   // Request to the server for Weather Data
-  const response = await fetch("/weather", {
+  fetch("/weather", {
     method: "post",
     body: JSON.stringify({
       lat,
@@ -121,7 +130,7 @@ var fetchWeather = async function (lat, lon) {
       console.log(data);
     })
     .catch((err) => console.log(err));
-};
+}
 
 // ------- Display Weather -------
 function displayCurrent(data) {
@@ -147,14 +156,14 @@ function display5DayForecast(data) {
 }
 
 // ------- Handle Events -------
-var handleSearch = function (e) {
+function handleSearch(e) {
   e.preventDefault();
   const city = document.querySelector("#city-name").value.trim().toLowerCase(); // get city name
   searchEl.reset(); // clear the form
 
-  // INPUT VALIDATOR
+  // input validator
   if (city) {
-    // Check if the city is in previous searches!
+    // Check if the city is in previous searches
     if (searchObj.previous.findIndex((search) => search.name === city) === -1) {
       fetchLatLon(city); // If new search, attempt to tech coordinates
     } else {
@@ -163,30 +172,22 @@ var handleSearch = function (e) {
   } else {
     alert("You must enter the name of a city!");
   }
-};
+}
 
-// PREVIOUS SEARCH BUTTON HANDLER
-var reSearch = function (event) {
-  // Get the id
-  var targetEl = event.target;
-  var i = targetEl.id;
+function handleReSearch(e) {
+  const city = e.target.innerHTML.toLowerCase();
+  reSearch(city);
+}
 
-  // Grab the City data from localstorage
-  var newSearch = localStorage.getItem("search");
-  var cityData = JSON.parse(newSearch);
-  var cityInfo = cityData[i];
-
-  // Define values from cityInfo array
-  var cityname = cityInfo[0];
-  var latitude = cityInfo[1];
-  var longitude = cityInfo[2];
-  // console.log("Displaying the weather for -", cityname, latitude, longitude);
-
-  // Request the Weather Data
-  openWeatherRequest(latitude, longitude, cityname);
-};
+function handleClear() {
+  previousEl.replaceChildren(); // Clear div
+  searchObj.previous = [];
+  setStorage();
+}
 
 searchEl.addEventListener("submit", handleSearch);
-previousEl.addEventListener("click", reSearch);
+previousEl.addEventListener("click", handleReSearch);
+clearEl.addEventListener("click", handleClear);
 
 searchObj.retrieveSearches(); // Display Previous Searches on page load
+fetchLatLon("Austin");
