@@ -12,7 +12,40 @@ const searchObj = {
   },
 };
 
-// Toolbox
+// ------- Time Toolbox -------
+let date = "";
+
+const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+function amPm() {
+  let time = date.getHours(); // hh
+  if (time > 12) {
+    time = time - 12 + ":00 pm";
+  } else if (time === 12) {
+    time = time + ":00 pm";
+  } else if (time === 0) {
+    time = time + 12 + ":00 am";
+  } else {
+    time = time + ":00 am";
+  }
+  return time;
+}
+
+// ------- Toolbox -------
+function abbreviate(day) {
+  let firstThree = day.split("");
+  let newDay = firstThree[0] + firstThree[1] + firstThree[2];
+  return capitalize(newDay);
+}
+
 function addButton(city) {
   const button = document.createElement("button");
   button.innerHTML = capitalize(city);
@@ -21,6 +54,16 @@ function addButton(city) {
 
 function capitalize(city) {
   return city.charAt(0).toUpperCase() + city.slice(1); // Capitalize the first letter
+}
+
+function createIcon(icon, id) {
+  const image = document.getElementById(id);
+  image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+}
+
+function removeDecimal(data) {
+  let newData = data.toString().split(".");
+  return newData[0];
 }
 
 function setHTML(element, value) {
@@ -73,83 +116,35 @@ var fetchWeather = async function (lat, lon) {
     .then((response) => response.json())
     .then((data) => {
       setHTML("#city", capitalize(searchObj.newCity.name));
-      displayWeather(data, cityname);
+      displayCurrent(data.current);
+      display5DayForecast(data.daily);
       console.log(data);
     })
     .catch((err) => console.log(err));
 };
 
-// DISPLAY WEATHER DATA
-var displayWeather = function (weather, cityname) {
-  // Use image constructor to add Open Weather Icon
-  var img = new Image();
-  var iconSource = weather.current.weather[0].icon;
-  img.src = "http://openweathermap.org/img/wn/" + iconSource + "@2x.png";
-  img.className = "currentIcon";
+// ------- Display Weather -------
+function displayCurrent(data) {
+  date = new Date(data.dt * 1000); // r/a date value
+  setHTML("#date", weekday[date.getDay()] + " " + amPm()); // dd hh:mm am/pm
+  setHTML("#description", capitalize(data.weather[0].description));
+  createIcon(data.weather[0].icon, "icon");
+  setHTML("#humidity", "Humidity: " + removeDecimal(data.humidity) + "%");
+  setHTML("#temp", removeDecimal(data.temp) + "°F");
+  setHTML("#wind", "Wind: " + removeDecimal(data.wind_speed) + "mph");
+  setHTML("#uvi", "UV Index: " + removeDecimal(data.uvi));
+}
 
-  // Format the date
-  var unixUTCCurrent = weather.current.dt;
-  var currentDate = new Date(unixUTCCurrent * 1000);
-  var date = currentDate.toLocaleDateString();
-
-  // Update the Current Weather Card
-  document.getElementById("cityName").innerHTML = cityname;
-  document.getElementById("cityDate").innerHTML = date;
-  // Clear the old icon (if applicable), append new
-  document.getElementById("cityIcon").innerHTML = "";
-  document.getElementById("cityIcon").appendChild(img);
-  document.getElementById("cityTemp").innerHTML = weather.current.temp + " °";
-  document.getElementById("cityWeather").innerHTML =
-    "Wind: " +
-    weather.current.wind_speed +
-    "mph <br> Humidity: " +
-    weather.current.humidity +
-    "% <br> UV Index: ";
-
-  // Determine the UV index
-  var uvi = weather.current.uvi;
-  var uviEl = document.createElement("span");
-  if (uvi <= 2) {
-    // If UVI is "2" or less - green
-    uviEl.setAttribute("class", "bg-success p-1 text-center");
-    // If UVI is between "3" to "5" - yellow
-  } else if (uvi >= 3 && uvi <= 5) {
-    uviEl.setAttribute("class", "bg-warning p-1 text-center");
-    // If UVI is above "5" - red
-  } else {
-    uviEl.setAttribute("class", "bg-danger p-1 text-center");
+function display5DayForecast(data) {
+  for (var i = 0; i < 5; i++) {
+    date = new Date(data[i].dt * 1000); // r/a date value
+    setHTML(`#date${i}`, abbreviate(weekday[date.getDay()])); // dd
+    createIcon(data[i].weather[0].icon, "icon" + [i]);
+    setHTML(`#humidity${i}`, data[i].humidity + "%");
+    setHTML(`#temp${i}`, removeDecimal(data[i].temp.day) + "°F");
+    setHTML(`#wind${i}`, removeDecimal(data[i].wind_speed) + "mph");
   }
-  // Set the #
-  uviEl.innerHTML = uvi;
-  // Append
-  document.getElementById("cityWeather").appendChild(uviEl);
-
-  // Update 5 Day Forecast cards
-  for (let i = 0; i < 5; i++) {
-    // Format the date
-    var unixUTCdaily = weather.daily[i].dt;
-    var dailyDate = new Date(unixUTCdaily * 1000);
-    var dayDate = dailyDate.toLocaleDateString();
-
-    // Get the Icon from Open Weather
-    var img = new Image();
-    var iconSource = weather.daily[i].weather[0].icon;
-    img.src = "http://openweathermap.org/img/wn/" + iconSource + "@2x.png";
-
-    // Update each "day" card
-    document.getElementById("cityDate" + i).innerHTML = dayDate;
-    // Clear the old icon (if applicable), append new
-    document.getElementById("cityIcon" + i).innerHTML = "";
-    document.getElementById("cityIcon" + i).appendChild(img);
-    document.getElementById("cityTemp" + i).innerHTML =
-      weather.daily[i].temp.day + " °";
-    document.getElementById("cityWeather" + i).innerHTML =
-      weather.daily[i].wind_speed +
-      "mph <br>" +
-      weather.daily[i].humidity +
-      "%";
-  }
-};
+}
 
 // ------- Handle Events -------
 var handleSearch = function (e) {
