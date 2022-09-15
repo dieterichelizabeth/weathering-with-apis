@@ -93,7 +93,7 @@ function fetchLatLon(city) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       if (!data.coord) {
         alert("City not found!");
       } else {
@@ -136,7 +136,6 @@ function fetchWeather() {
 
 // ------- Display Weather -------
 function displayCurrent(data) {
-  console.log(data);
   date = new Date(data.dt * 1000); // r/a date value
   setHTML("#date", weekday[date.getDay()] + " " + amPm()); // dd hh:mm am/pm
   setHTML("#description", capitalize(data.weather[0].description));

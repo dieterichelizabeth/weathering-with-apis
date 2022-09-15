@@ -10,7 +10,7 @@ Built with: Javascript, HTML, CSS, and Node.js.
 
 ## Screenshots
 
-<img width="1369" alt="Screen Shot 2022-04-27 at 1 07 52 AM" src="https://user-images.githubusercontent.com/95142863/165452437-e580b805-b2f1-4f7e-99f0-147e7a3981e6.png">
+<img width="1223" alt="Screen Shot 2022-09-15 at 1 05 57 AM" src="https://user-images.githubusercontent.com/95142863/190487394-5675f968-60ed-4fdb-9a39-e14f36f54ab2.png">
 
 ## Lessons Learned
 
@@ -67,8 +67,6 @@ WHEN I search for a city
 THEN I am presented with current and future conditions for that city and that city is added to the search history
 WHEN I view current weather conditions for that city
 THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
 WHEN I view future weather conditions for that city
 THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 WHEN I click on a city in the search history
