@@ -90,5 +90,3 @@ THEN I am again presented with current and future conditions for that city
 ---
 
 Made with Love
-
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
