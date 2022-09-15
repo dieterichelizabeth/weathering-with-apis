@@ -93,6 +93,7 @@ function fetchLatLon(city) {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       if (!data.coord) {
         alert("City not found!");
       } else {
@@ -112,7 +113,8 @@ function fetchLatLon(city) {
 
 function fetchWeather() {
   let lat = searchObj.newCity.lat;
-  let lon = searchObj.newCity.long;
+  let lon = searchObj.newCity.lon;
+  // console.log(lat, lon);
   // Request to the server for Weather Data
   fetch("/weather", {
     method: "post",
@@ -124,16 +126,17 @@ function fetchWeather() {
   })
     .then((response) => response.json())
     .then((data) => {
+      // console.log(data);
       setHTML("#city", capitalize(searchObj.newCity.name));
       displayCurrent(data.current);
       display5DayForecast(data.daily);
-      console.log(data);
     })
     .catch((err) => console.log(err));
 }
 
 // ------- Display Weather -------
 function displayCurrent(data) {
+  console.log(data);
   date = new Date(data.dt * 1000); // r/a date value
   setHTML("#date", weekday[date.getDay()] + " " + amPm()); // dd hh:mm am/pm
   setHTML("#description", capitalize(data.weather[0].description));
@@ -190,4 +193,4 @@ previousEl.addEventListener("click", handleReSearch);
 clearEl.addEventListener("click", handleClear);
 
 searchObj.retrieveSearches(); // Display Previous Searches on page load
-fetchLatLon("Austin");
+fetchLatLon("Seattle");
