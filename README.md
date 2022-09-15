@@ -1,4 +1,4 @@
-# Weathering-With-API's ☔️
+# Weathering-With-API's ☔️ V1.1
 
 Weathering With APi's is a weather dashboard where users can search for weather data based on city name. A user can search for a city such as "San Francisco" and the app will display the current weather, as well as a 5 day forecast. Previous searches are saved under the search bar, and can be used to re-display weather for that city.
 
