@@ -76,64 +76,118 @@ select {
   width: 100%;
 }
 
-/* Styles to Weather Container */
-.weatherContainer {
-  background-color: #ebebf1c6;
+/* Styles to Weather Containers */
+#current-weather-container,
+#future-weather-container {
+  width: 60%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--primary);
+  padding-bottom: 30px;
 }
 
-/* styles to current day card */
-.todayCard {
-  background-color: white;
-  border-radius: 20px;
-  margin: 30px 0px 30px;
+#current-weather-container {
+  justify-content: space-between;
+  margin-top: 100px;
 }
 
-.cityTitle {
+#future-weather-container {
+  justify-content: space-around;
+  margin-bottom: 100px;
+}
+
+/* Styles to Current Day */
+.today-weather-div {
+  padding-left: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+#temp {
+  font-size: 50px;
+  color: black;
+  margin: 40px 20px 0px 15px;
+}
+
+.today-weather-div div {
+  margin-top: 25px;
+}
+
+.today-weather-div p {
+  font-size: 16px;
+  margin: 5px;
+  padding: 0;
+  color: var(--lightGrey);
+}
+
+.today-city-div {
+  text-align: right;
+  padding-right: 50px;
+}
+
+.today-city-div h2 {
+  font-size: 45px;
+  font-weight: 300;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.today-city-div p {
+  font-size: 20px;
+  margin: 5px;
+  padding: 0;
+  color: var(--darkGrey);
+}
+
+/* Styles to Forecast */
+#day0,
+#day1,
+#day2,
+#day3,
+#day4 {
+  width: 10%;
+  padding-top: 20px;
   text-align: center;
-  width: 100%;
-  margin-top: 20px;
 }
 
-.currentIcon {
-  height: 100px;
-}
-
-.currentTemprature {
+#date0,
+#date1,
+#date2,
+#date3,
+#date4 {
   font-size: 25px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.currentDate {
-  font-size: 10px;
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.currentWind {
-  font-size: 12px;
+#day0 img,
+#day1 img,
+#day2 img,
+#day3 img,
+#day4 img,
+.flex-wrap p {
+  margin: 0;
+  padding: 0;
 }
 
-/* styles to 5 day forcast and cards */
-.forecastTitle {
-  font-size: 17px;
-  margin-left: 20px;
-}
-
-.forecastCard {
-  background-color: white;
-  border-radius: 20px;
-  margin: 5px 0px 5px;
-}
-
-.forecastDate {
-  margin-top: 10px;
-  font-weight: 900;
-  font-size: 17px;
-}
-
-.forcastIcon {
-  height: 50px;
-  margin-bottom: 20px;
-}
-
-.forecastTemp {
-  font-size: 23px;
-  margin-bottom: 0px;
+#humidity4,
+#humidity3,
+#humidity2,
+#humidity1,
+#humidity0,
+#wind4,
+#wind3,
+#wind2,
+#wind1,
+#wind0 {
+  color: var(--lightGrey);
 }

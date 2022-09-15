@@ -9,11 +9,6 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Bootstrap -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
-    />
     <!-- Material Search Icon -->
     <link
       rel="stylesheet"
@@ -23,73 +18,77 @@
     <title>Weathering With API's</title>
   </head>
   <body>
-    <div class="d-flex flex-wrap justify-content-center contentDisplay">
-      <!-- Weather Display -->
-      <div
-        class="col-lg-9 col-md-12 d-flex flex-wrap justify-content-center weatherContainer"
-      >
-        <!-- Current Day -->
-        <div class="col-lg-6 col-sm-9 todayCard">
-          <h1 id="cityName" class="cityTitle"></h1>
-          <p id="cityDate" class="text-center currentDate"></p>
-          <div class="d-flex flex-wrap justify-content-center">
-            <div id="cityIcon"></div>
-            <div class="col-5">
-              <p id="cityTemp" class="currentTemprature"></p>
-              <p id="cityWeather" class="currentWind"></p>
-            </div>
-          </div>
-        </div>
+    <!-- Current Day -->
+    <section id="current-weather-container">
+      <div class="today-weather-div">
+        <img id="icon" />
+        <p id="temp"></p>
 
-        <!-- Section for 5 day forecast-->
-        <div class="col-12">
-          <p class="text-left ml-4 col-lg-10 col-sm-11 forecastTitle">
-            5-Day Forecast
-          </p>
-          <div class="d-flex flex-wrap justify-content-around">
-            <!-- Day 1 -->
-            <div class="col-lg-2 col-sm-7 text-center forecastCard">
-              <p id="cityDate0" class="forecastDate"></p>
-              <div id="cityIcon0"></div>
-              <p id="cityTemp0" class="forecastTemp"></p>
-              <p id="cityWeather0"></p>
-            </div>
-
-            <!-- Day 2 -->
-            <div class="col-lg-2 col-sm-7 text-center forecastCard">
-              <p id="cityDate1" class="forecastDate"></p>
-              <div id="cityIcon1"></div>
-              <p id="cityTemp1" class="forecastTemp"></p>
-              <p id="cityWeather1"></p>
-            </div>
-
-            <!-- Day 3 -->
-            <div class="col-lg-2 col-sm-7 text-center forecastCard">
-              <p id="cityDate2" class="forecastDate"></p>
-              <div id="cityIcon2"></div>
-              <p id="cityTemp2" class="forecastTemp"></p>
-              <p id="cityWeather2"></p>
-            </div>
-
-            <!-- Day 4 -->
-            <div class="col-lg-2 col-sm-7 text-center forecastCard">
-              <p id="cityDate3" class="forecastDate"></p>
-              <div id="cityIcon3"></div>
-              <p id="cityTemp3" class="forecastTemp"></p>
-              <p id="cityWeather3"></p>
-            </div>
-
-            <!-- Day 5 -->
-            <div class="col-lg-2 col-sm-7 text-center forecastCard">
-              <p id="cityDate4" class="forecastDate"></p>
-              <div id="cityIcon4"></div>
-              <p id="cityTemp4" class="forecastTemp"></p>
-              <p id="cityWeather4"></p>
-            </div>
-          </div>
+        <div>
+          <p id="humidity"></p>
+          <p id="wind"></p>
+          <p id="uvi"></p>
         </div>
       </div>
-    </div>
+      <div class="today-city-div">
+        <h2 id="city"></h2>
+        <p id="date"></p>
+        <p id="description"></p>
+      </div>
+    </section>
+
+    <!-- 5 Day Forecast-->
+    <section id="future-weather-container">
+      <div id="day0">
+        <p id="date0"></p>
+        <img id="icon0" />
+        <div class="flex-wrap">
+          <p id="temp0"></p>
+          <p id="humidity0"></p>
+        </div>
+        <p id="wind0"></p>
+      </div>
+
+      <div id="day1">
+        <p id="date1"></p>
+        <img id="icon1" />
+        <div class="flex-wrap">
+          <p id="temp1"></p>
+          <p id="humidity1"></p>
+        </div>
+        <p id="wind1"></p>
+      </div>
+
+      <div id="day2">
+        <p id="date2"></p>
+        <img id="icon2" />
+        <div class="flex-wrap">
+          <p id="temp2"></p>
+          <p id="humidity2"></p>
+        </div>
+        <p id="wind2"></p>
+      </div>
+
+      <div id="day3">
+        <p id="date3"></p>
+        <img id="icon3" />
+        <div class="flex-wrap">
+          <p id="temp3"></p>
+          <p id="humidity3"></p>
+        </div>
+        <p id="wind3"></p>
+      </div>
+
+      <div id="day4">
+        <p id="date4"></p>
+        <img id="icon4" />
+        <div class="flex-wrap">
+          <p id="temp4"></p>
+          <p id="humidity4"></p>
+        </div>
+        <p id="wind4"></p>
+      </div>
+    </section>
 
     <!-- Search Form and History -->
     <section id="form-section">
