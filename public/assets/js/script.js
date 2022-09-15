@@ -27,18 +27,21 @@ function setStorage() {
   localStorage.setItem("CitySearchHistory", JSON.stringify(searchObj.previous));
 }
 
-// INPUT VALIDATOR
-var inputValidator = function (event) {
-  event.preventDefault();
-  var cityNameEl = document.querySelector("#city-name");
-  var cityname = cityNameEl.value.trim();
+var handleSearch = function (e) {
+  e.preventDefault();
+  const city = document.querySelector("#city-name").value.trim().toLowerCase(); // get city name
+  searchEl.reset(); // clear the form
 
-  // If Input is present, send a requst for lat/long values
-  if (cityname) {
-    citySearchHandler(cityname);
-    cityNameEl.value = "";
+  // INPUT VALIDATOR
+  if (city) {
+    // Check if the city is in previous searches!
+    if (searchObj.previous.findIndex((search) => search.name === city) === -1) {
+      citySearchHandler(city); // If new search, attempt to tech coordinates
+    } else {
+      reSearch(city);
+    }
   } else {
-    alert("Please enter the name of a city.");
+    alert("You must enter the name of a city!");
   }
 };
 
@@ -194,13 +197,15 @@ var displayWeather = function (weather, cityname) {
 };
 
 // Event Listeners
-searchEl.addEventListener("submit", inputValidator);
+searchEl.addEventListener("submit", handleSearch);
 previousEl.addEventListener("click", reSearch);
 
 welcome = function () {
   firstSearch = "Austin";
   citySearchHandler(firstSearch);
 };
+
+searchObj.retrieveSearches(); // Display Previous Searches on page load
 
 // On load, display Austin, TX weather
 welcome();
