@@ -36,7 +36,7 @@ var handleSearch = function (e) {
   if (city) {
     // Check if the city is in previous searches!
     if (searchObj.previous.findIndex((search) => search.name === city) === -1) {
-      citySearchHandler(city); // If new search, attempt to tech coordinates
+      fetchLatLon(city); // If new search, attempt to tech coordinates
     } else {
       reSearch(city);
     }
@@ -45,10 +45,10 @@ var handleSearch = function (e) {
   }
 };
 
-// CITY VALIDATOR
-var citySearchHandler = async function (city) {
+// ------- Go Fetch -------
+var fetchLatLon = async function (city) {
   // Request to the server for Open Weather API Geolocation
-  const response = await fetch("/city", {
+  await fetch("/city", {
     method: "post",
     body: JSON.stringify({
       city,
@@ -57,11 +57,9 @@ var citySearchHandler = async function (city) {
   })
     .then((response) => response.json())
     .then((data) => {
-      geolocation = data.coord;
-      if (geolocation === undefined) {
+      if (!data.coord) {
         alert("City not found!");
       } else {
-        //  Store City Info
         searchObj.newCity = {
           name: city,
           lat: data.coord.lat,
@@ -69,15 +67,11 @@ var citySearchHandler = async function (city) {
         };
         addButton(city);
         searchObj.previous.push(searchObj.newCity);
-        setStorage();
-
-        // Request weather data, Save form input to a button
-        openWeatherRequest();
+        setStorage(); // Store City Info
+        openWeatherRequest(); // Request weather data, Save form input to a button
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
 };
 
 // REQUEST WEATHER DATA FROM OPEN WEATHER API
