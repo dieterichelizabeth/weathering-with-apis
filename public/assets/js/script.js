@@ -1,15 +1,36 @@
-// City Search Form
-var citySearchEl = document.querySelector("#city-form");
-var cityNameEl = document.querySelector("#city-name");
-var searchButtonEl = document.querySelector("#city-storage");
+const searchEl = document.querySelector("#city-form");
+const clearEl = document.querySelector("#clear-search");
+const previousEl = document.querySelector("#previous-searches");
 
 // Local Storage
-var cityCount = 0;
-var searchHistory = [];
+const searchObj = {
+  previous: [],
+  newCity: {},
+  retrieveSearches: function () {
+    this.previous = JSON.parse(localStorage.getItem("CitySearchHistory")) || []; // Either local Storage || Empty
+    this.previous.map((city) => addButton(city.name)); // Display Previous Searches
+  },
+};
+
+// Toolbox
+function addButton(city) {
+  const button = document.createElement("button");
+  button.innerHTML = capitalize(city);
+  previousEl.append(button);
+}
+
+function capitalize(city) {
+  return city.charAt(0).toUpperCase() + city.slice(1); // Capitalize the first letter
+}
+
+function setStorage() {
+  localStorage.setItem("CitySearchHistory", JSON.stringify(searchObj.previous));
+}
 
 // INPUT VALIDATOR
 var inputValidator = function (event) {
   event.preventDefault();
+  var cityNameEl = document.querySelector("#city-name");
   var cityname = cityNameEl.value.trim();
 
   // If Input is present, send a requst for lat/long values
@@ -22,12 +43,12 @@ var inputValidator = function (event) {
 };
 
 // CITY VALIDATOR
-var citySearchHandler = async function (cityname) {
+var citySearchHandler = async function (city) {
   // Request to the server for Open Weather API Geolocation
   const response = await fetch("/city", {
     method: "post",
     body: JSON.stringify({
-      cityname,
+      city,
     }),
     headers: { "Content-Type": "application/json" },
   })
@@ -37,12 +58,18 @@ var citySearchHandler = async function (cityname) {
       if (geolocation === undefined) {
         alert("City not found!");
       } else {
-        // Store lat/long variables
-        var latitude = data.coord.lat;
-        var longitude = data.coord.lon;
+        //  Store City Info
+        searchObj.newCity = {
+          name: city,
+          lat: data.coord.lat,
+          lon: data.coord.lon,
+        };
+        addButton(city);
+        searchObj.previous.push(searchObj.newCity);
+        setStorage();
+
         // Request weather data, Save form input to a button
-        openWeatherRequest(latitude, longitude, cityname);
-        cityStorage(latitude, longitude, cityname);
+        openWeatherRequest();
       }
     })
     .catch((err) => {
@@ -51,7 +78,9 @@ var citySearchHandler = async function (cityname) {
 };
 
 // REQUEST WEATHER DATA FROM OPEN WEATHER API
-var openWeatherRequest = async function (latitude, longitude, cityname) {
+var openWeatherRequest = async function () {
+  let latitude = searchObj.newCity.lat;
+  let longitude = searchObj.newCity.long;
   // Request to the server for Open Weather API Weather data
   const response = await fetch("/weather", {
     method: "post",
@@ -69,31 +98,6 @@ var openWeatherRequest = async function (latitude, longitude, cityname) {
     .catch((err) => {
       console.log(err);
     });
-};
-
-// ADD SEARCH HISTORY BUTTONS
-var cityStorage = function (latitude, longitude, cityname) {
-  // Create the button
-  var newButtonEl = document.createElement("button");
-  newButtonEl.setAttribute("id", cityCount);
-  newButtonEl.setAttribute("class", "btn previousSearch");
-  newButtonEl.innerHTML = cityname;
-  // Append
-  document.getElementById("city-storage").appendChild(newButtonEl);
-
-  // push variables into array for storage
-  var cityInfo = [];
-  cityInfo.push(cityname);
-  cityInfo.push(latitude);
-  cityInfo.push(longitude);
-  cityInfo.push(newButtonEl.id);
-
-  // push array into array
-  searchHistory.push(cityInfo);
-
-  // Save search to local storage
-  localStorage.setItem("search", JSON.stringify(searchHistory));
-  cityCount++;
 };
 
 // PREVIOUS SEARCH BUTTON HANDLER
@@ -190,8 +194,8 @@ var displayWeather = function (weather, cityname) {
 };
 
 // Event Listeners
-citySearchEl.addEventListener("submit", inputValidator);
-searchButtonEl.addEventListener("click", reSearch);
+searchEl.addEventListener("submit", inputValidator);
+previousEl.addEventListener("click", reSearch);
 
 welcome = function () {
   firstSearch = "Austin";
